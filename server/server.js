@@ -1,18 +1,21 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import userRoutes from './routes/userRoutes.js';
+const mongoose = require("mongoose");
+const dotenv=require("dotenv")
+const path = require("path");
 
-const PORT = process.env.PORT || 5000;
-
-const app = express();
-app.use(cors());
 dotenv.config();
-app.listen(express.json());
+const app = require("./app");
 
 
-app.use('/users', userRoutes);
-// app.use();
+mongoose
+  .connect(process.env.DATABASE_LOCAL, {
+    // useNewUrlParser:true,
+    // useCreateIndex:true,
+    // useFindAndModify:false
+  })
+  .then(() => console.log(`Connection sucessfully`));
+
+  
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server is listening at port ${PORT}`);
