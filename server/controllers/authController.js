@@ -98,9 +98,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //Verification
-  // console.log(token)
-  // const decoded=await promisify(jwt.verify)(token,'mysecretkey')
-  const decoded = jwt.verify(token, "mysecretkey");
+  const decoded = jwt.verify(token, process.env.SECRET_KEY);
   console.log(decoded);
   //User is still a active user
   const freshUser = await User.findById(decoded.id);
