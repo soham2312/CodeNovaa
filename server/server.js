@@ -5,9 +5,25 @@ const path = require("path");
 dotenv.config();
 const app = require("./app");
 
+const DB = process.env.DATABASE_HOST.replace(
+  '<password>',
+  process.env.DATABASE_PASSWORD
+);
+
+//Database Local
+
+// mongoose
+//   .connect(process.env.DATABASE_LOCAL, {
+//     // useNewUrlParser:true,
+//     // useCreateIndex:true,
+//     // useFindAndModify:false
+//   })
+//   .then(() => console.log(`Connection sucessfully`));
+
+//Database Cluster
 
 mongoose
-  .connect(process.env.DATABASE_LOCAL, {
+  .connect(DB, {
     // useNewUrlParser:true,
     // useCreateIndex:true,
     // useFindAndModify:false
