@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import Codeforces from "./components/platform/Codeforces";
 import Github from "./components/platform/Github";
 import Leetcode from "./components/platform/Leetcode";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="about" element={<About />} />
+          <Route path="" element={<Home />} />
           <Route path="me" element={<Me />}>
             <Route path="codeforces" element={<Codeforces />} />
             <Route path="leetcode" element={<Leetcode />} />
