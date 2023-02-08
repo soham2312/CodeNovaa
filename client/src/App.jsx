@@ -7,6 +7,7 @@ import Codeforces from "./components/platform/Codeforces";
 import Github from "./components/platform/Github";
 import Leetcode from "./components/platform/Leetcode";
 import Home from "./pages/Home";
+import Codechef from "./components/platform/Codechef";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="me" element={<Me />}>
             <Route path="codeforces" element={<Codeforces />} />
+            <Route path="codechef" element={<Codechef />} />
             <Route path="leetcode" element={<Leetcode />} />
             <Route path="github" element={<Github />} />
           </Route>
