@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { PacmanLoader } from "react-spinners";
 
-const Leetcode = () => {
+const Codechef = () => {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const getdata = async () => {
       try {
-        const handle = "anudeep0306";
+        const handle = "cjfeucj123";
         const fdata = await axios.get(
-          `http://localhost:8080/api/v1/leetcode/${handle}`
+          `http://localhost:8080/api/v1/codechef/${handle}`
         );
         setData(fdata.data);
-
+        setLoading(false);
         console.log(fdata.data);
       } catch (error) {
         console.log(error);
@@ -29,16 +30,18 @@ const Leetcode = () => {
 
   return (
     <div>
-      Leetcode
-      {data ? (
-        " data arrived"
-      ) : !error ? (
-        <PacmanLoader color="#ffac2b" />
-      ) : (
-        " error occoured"
-      )}
+      <div>
+        codechef
+        {data ? (
+          " data arrived"
+        ) : !error ? (
+          <PacmanLoader color="#ffac2b" />
+        ) : (
+          " error occoured"
+        )}
+      </div>
     </div>
   );
 };
 
-export default Leetcode;
+export default Codechef;
