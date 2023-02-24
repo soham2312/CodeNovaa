@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import Header from "../../components/Header/Header";
 import user from "../../assets/default.jpg";
 import "./Me.css";
 
@@ -47,7 +46,6 @@ const Platform = () => (
 const Me = () => {
   return (
     <div className="profile">
-      <Header />
       <div className="profile-center">
         <div className="photo">
           <img src={user} alt="user" />
