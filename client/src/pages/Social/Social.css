@@ -12,3 +12,10 @@
   left: 445px;
   top: 280px;
 }
+
+.user-card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 25px;
+  column-gap: 25px;
+}
