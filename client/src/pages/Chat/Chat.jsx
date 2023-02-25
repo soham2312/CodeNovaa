@@ -14,24 +14,26 @@ const Chat = () => {
     console.log(selectedChat);
 
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      setNewMessage("");
-      const { data } = await axios.post(
-        "http://localhost:5000/api/v1/message",
-        {
-          content: newMessage,
-          chatId: selectedChat._id,
-        },
-        config
-      );
-      console.log(data);
+      if (newMessage) {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        setNewMessage("");
+        const { data } = await axios.post(
+          "http://localhost:5000/api/v1/message",
+          {
+            content: newMessage,
+            chatId: selectedChat._id,
+          },
+          config
+        );
+        console.log(data);
 
-      setMessages([...messages, data]);
+        setMessages([...messages, data]);
+      }
     } catch (error) {
       console.log(error);
     }

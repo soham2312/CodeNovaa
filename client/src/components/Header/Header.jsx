@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
-import { Link, NavLink } from "react-router-dom";
 import user from "../../assets/default.jpg";
+import { Link, NavLink } from "react-router-dom";
+import userpic from "../../assets/default.jpg";
+import { ChatState } from "../../context/ChatProvider";
+
 // import "./Header.css";
 import "./tempheader.css";
 // import { IoNewspaper } from "react-icons/io5";
@@ -25,6 +28,8 @@ const Menu = () => {
 };
 
 const Header = () => {
+  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+
   return (
     <div className="header">
       <Link to="/" className="logo">
@@ -32,8 +37,8 @@ const Header = () => {
       </Link>
       <Menu />
       <Link to="/me" className="user">
-        <p>Swati Dagar</p>
-        <img src={user} alt="user" className="user-img" />
+        <p>{user ? user.data.user.name : <Link to="/login">login</Link>}</p>
+        <img src={userpic} alt="user" className="user-img" />
       </Link>
     </div>
   );
