@@ -12,6 +12,7 @@ import Chat from "./pages/Chat/Chat";
 import Login from "./pages/Login/Login";
 
 import Geeksforgeeks from "./components/platform/Geeksforgeeks";
+import Social from "./pages/Social/Social";
 function App() {
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="chat" element={<Chat />} />
           <Route path="login" element={<Login />} />
+          <Route path="social" element={<Social />} />
           <Route path="me" element={<Me />}>
             <Route path="codeforces" element={<Codeforces />} />
             <Route path="codechef" element={<Codechef />} />

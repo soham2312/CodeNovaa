@@ -1,0 +1,14 @@
+.social-middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 20px;
+  background-color: aliceblue;
+
+  position: absolute;
+  width: 550px;
+  height: 254px;
+  left: 445px;
+  top: 280px;
+}
