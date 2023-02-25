@@ -1,0 +1,49 @@
+.discussion {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  gap: 20px;
+  width: 590px;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.07);
+  border-radius: 10px;
+}
+
+.discussion-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+  width: 357px;
+  font-weight: 500;
+}
+
+.discussion-chat-user-img {
+  display: flex;
+  flex-direction: row;
+  gap: -10px;
+}
+
+.discussion-chat-user-img img {
+  height: 40px;
+  border-radius: 50%;
+  margin-right: -8px;
+  border: 2px solid #fa9236;
+}
+
+.btn-discussion {
+  color: #fff;
+  font-weight: 500;
+  padding: 12px 24px;
+  background: #fa9236;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.btn-discussion:hover {
+  background-color: #dc7418;
+}

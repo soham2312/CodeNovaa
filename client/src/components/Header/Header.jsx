@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import user from "../../assets/default.jpg";
+import { Link, NavLink } from "react-router-dom";
 import userpic from "../../assets/default.jpg";
 import { ChatState } from "../../context/ChatProvider";
 
@@ -10,18 +11,18 @@ import "./tempheader.css";
 const Menu = () => {
   return (
     <div className="menu">
-      <Link to="questions" className="menu-link">
+      <NavLink to="/" className="menu-link">
         Questions
-      </Link>
-      <Link to="discusssion" className="menu-link">
+      </NavLink>
+      <NavLink to="discusssion" className="menu-link">
         Discussion
-      </Link>
-      <Link to="chat" className="menu-link">
+      </NavLink>
+      <NavLink to="chat" className="menu-link">
         Chat
-      </Link>
-      <Link to="social" className="menu-link">
+      </NavLink>
+      <NavLink to="social" className="menu-link">
         Social
-      </Link>
+      </NavLink>
     </div>
   );
 };
