@@ -9,7 +9,7 @@ const Home = () => {
     <div>
       <h1>Home</h1>
       <Question />
-      <SocialCard />
+      {/* <SocialCard /> */}
       <Discussion />
       <Link to="me">profile</Link>
     </div>

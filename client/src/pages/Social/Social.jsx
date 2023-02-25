@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 
 import "./Social.css";
+import SocialCard from "../../components/SocialCard/SocialCard";
 
 const Social = () => {
   const [search, setSearch] = useState("");
@@ -24,8 +25,8 @@ const Social = () => {
         `http://localhost:5000/api/v1/users?search=${search}`,
         config
       );
-      setSearchResult(data);
-      console.log(data);
+      setSearchResult(data.users);
+      console.log(data.users);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -47,9 +48,17 @@ const Social = () => {
           placeholder="search for user"
           value={search}
           onChange={(e) => {
+            e.preventDefault();
             setSearch(e.target.value);
           }}
         />
+        <div className="user-card">
+          {searchResult.length !== 0 ? (
+            searchResult.map((user) => <SocialCard user={user} />)
+          ) : (
+            <p>user not found</p>
+          )}
+        </div>
       </div>
     </div>
   );

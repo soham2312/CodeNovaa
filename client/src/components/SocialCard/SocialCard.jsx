@@ -5,14 +5,14 @@ import leetcode from "../../assets/leetcode.png";
 import utkarsh from "../../assets/utkarsh.jpg";
 import "./SocialCard.css";
 
-const SocialCard = () => {
+const SocialCard = ({ user }) => {
   return (
     <div className="socialcard">
       <div className="socialcard-image">
         <img src={utkarsh} alt="user-image" />
       </div>
       <div className="socialcard-details">
-        <div className="socialcard-user">Utkarsh Raj</div>
+        <div className="socialcard-user">{user.name}</div>
         <div className="socialcard-user-rating">
           <img src={leetcode} alt="leetcode" />
           310 Problems
