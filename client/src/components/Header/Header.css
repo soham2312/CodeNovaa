@@ -1,14 +1,12 @@
-.main-head {
-  /* Frame 9 */
-
-  /* Auto layout */
-
+.header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0px;
-  gap: 150px;
+  max-width: 1080px;
+  margin: 0 auto;
+  /* gap: 150px; */
 }
 .head {
   display: flex;
@@ -25,8 +23,6 @@
 
   width: 169px;
   height: 38px;
-
-  font-family: "Nunito";
   font-style: normal;
   font-weight: 700;
   font-size: 28px;
@@ -48,7 +44,6 @@
 .link2 {
   width: 49px;
   height: 25px;
-  font-family: "Nunito";
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -78,8 +73,6 @@
 
   width: 137px;
   height: 27px;
-
-  font-family: "Nunito";
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
