@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const cookieParser=require('cookie-parser');
-const cors=require("cors")
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const AppError = require("./utils/appError");
 const globalErrorController = require("./controllers/errorController");
-const userRouter=require('./routes/userRoutes')
+const userRouter = require("./routes/userRoutes");
+const chatRoutes = require("./routes/Chat/chatRoutes");
+const messageRoutes = require("./routes/Chat/messageRoutes");
 const app = express();
 
 //Middle ware for cors permission
@@ -18,13 +20,15 @@ app.use(express.json());
 app.use(cookieParser());
 
 //Max 10kb size of input user can give
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
 //User Routes
 app.use("/api/v1/users", userRouter);
+// app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/chat", chatRoutes);
+app.use("/api/v1/message", messageRoutes);
 
 //Route of global error handler
 app.use(globalErrorController);
-
 
 module.exports = app;

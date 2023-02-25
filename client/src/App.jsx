@@ -7,8 +7,11 @@ import Github from "./components/platform/Github";
 import Leetcode from "./components/platform/Leetcode";
 import Home from "./pages/Home/Home";
 import Codechef from "./components/platform/Codechef";
-import Geeksforgeeks from "./components/platform/Geeksforgeeks";
 
+import Chat from "./pages/Chat/Chat";
+import Login from "./pages/Login/Login";
+
+import Geeksforgeeks from "./components/platform/Geeksforgeeks";
 function App() {
   return (
     <div className="App">
@@ -16,6 +19,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="" element={<Home />} />
+          <Route path="chat" element={<Chat />} />
+          <Route path="login" element={<Login />} />
           <Route path="me" element={<Me />}>
             <Route path="codeforces" element={<Codeforces />} />
             <Route path="codechef" element={<Codechef />} />
