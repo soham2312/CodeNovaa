@@ -1,46 +1,26 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import user from "../../assets/default.jpg";
 import "./Me.css";
 
 const Platform = () => (
-  <>
-    <div className="link">
-      <p>
-        <Link to="/me/github" className="link2">
-          Github
-        </Link>
-      </p>
-    </div>
-    <div className="link">
-      <p>
-        <Link to="/me/codeforces" className="link2">
-          Codeforces
-        </Link>
-      </p>
-    </div>
-    <div className="link">
-      <p>
-        <Link to="/me/codechef" className="link2">
-          Codechef
-        </Link>
-      </p>
-    </div>
-    <div className="link">
-      <p>
-        <Link to="/me/leetcode" className="link2">
-          Leetcode
-        </Link>
-      </p>
-    </div>
-    <div className="link">
-      <p>
-        <Link to="/me/geeksforgeeks" className="link2">
-          GFG
-        </Link>
-      </p>
-    </div>
-  </>
+  <div className="platform">
+    <NavLink to="/me/github" className="platform-link">
+      Github
+    </NavLink>
+    <NavLink to="/me/codeforces" className="platform-link">
+      Codeforces
+    </NavLink>
+    <NavLink to="/me/codechef" className="platform-link">
+      Codechef
+    </NavLink>
+    <NavLink to="/me/leetcode" className="platform-link">
+      Leetcode
+    </NavLink>
+    <NavLink to="/me/geeksforgeeks" className="platform-link">
+      GFG
+    </NavLink>
+  </div>
 );
 
 const Me = () => {
