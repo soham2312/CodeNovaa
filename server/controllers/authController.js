@@ -1,4 +1,4 @@
-const dotenv=require("dotenv")
+const dotenv = require("dotenv");
 const catchAsync = require("./../utils/catchAsync");
 const User = require("./../models/userModel");
 const jwt = require("jsonwebtoken");
@@ -12,43 +12,41 @@ const signToken = (id) => {
   });
 };
 
-
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
-      Date.now() + (Number(process.env.EXPIRES))* 24 * 60 * 60 * 1000
+      Date.now() + Number(process.env.EXPIRES_IN) * 24 * 60 * 60 * 1000
     ),
-    httpOnly: true
+    httpOnly: true,
   };
   // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
-  res.cookie('jwt', token, cookieOptions);
+  res.cookie("jwt", token, cookieOptions);
 
   // Remove password from output
   user.password = undefined;
 
   res.status(statusCode).json({
-    status: 'success',
+    status: "success",
     token,
     data: {
-      user
-    }
+      user,
+    },
   });
 };
-
-
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
-    photo:req.body.photo,
+    photo: req.body.photo,
     password: req.body.password,
-    confirmPassword: req.body.confirmPassword});
+    confirmPassword: req.body.confirmPassword,
+  });
 
-    const url = `${req.protocol}://${req.get('host')}/me`;
- 
+  const url = `${req.protocol}://${req.get("host")}/me`;
+
   createSendToken(newUser, 201, res);
 });
 
@@ -72,15 +70,13 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-
 exports.logout = (req, res) => {
-  res.cookie('jwt', 'loggedout', {
+  res.cookie("jwt", "loggedout", {
     expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
+    httpOnly: true,
   });
-  res.status(200).json({ status: 'success' });
+  res.status(200).json({ status: "success" });
 };
-
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
@@ -90,9 +86,10 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
-  }else if (req.cookies.jwt) {
+  } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
+  // console.log(token);
   if (!token) {
     return next(new AppError("You are not logged in! Please login first", 401));
   }
@@ -109,30 +106,27 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //Grant access to the user
+  // console.log(freshUser);
   req.user = freshUser;
 
   next();
 });
-
 
 exports.isLoggedIn = async (req, res, next) => {
   // console.log(req.cookies)
   if (req.cookies.jwt) {
     try {
       // 1) verify token
-      
-      const decoded = await (jwt.verify)(
-        req.cookies.jwt,
-        'mysecretkey'
-      );
-      
+
+      const decoded = await jwt.verify(req.cookies.jwt, "mysecretkey");
+
       // 2) Check if user still exists
       const currentUser = await User.findById(decoded.id);
       if (!currentUser) {
         return next();
       }
 
-// console.log(decoded)
+      // console.log(decoded)
       // THERE IS A LOGGED IN USER
       res.locals.user = currentUser;
       return next();
@@ -142,8 +136,6 @@ exports.isLoggedIn = async (req, res, next) => {
   }
   next();
 };
-
-
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
