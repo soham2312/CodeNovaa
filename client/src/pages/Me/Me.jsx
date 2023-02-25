@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import Header from "../../components/Header/Header";
 import user from "../../assets/default.jpg";
 import "./Me.css";
 
