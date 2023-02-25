@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+.btn-cta-orange {
+  padding: 8px 10px;
+  background: #fa9236;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-cta-orange:hover {
+  background-color: #dc7418;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+}
