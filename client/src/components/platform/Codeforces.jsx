@@ -3,7 +3,6 @@ import axios from "axios";
 import Bargraph from "./Bargraph";
 import { PacmanLoader } from "react-spinners";
 import Pictograph from "./Pictograph";
-import Example from "./Example";
 
 const Codeforces = () => {
   const [data, setData] = useState(null);

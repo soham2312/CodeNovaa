@@ -47,7 +47,6 @@ const Platform = () => (
 const Me = () => {
   return (
     <div className="profile">
-      <Header />
       <div className="profile-center">
         <div className="photo">
           <img src={user} alt="user" />
