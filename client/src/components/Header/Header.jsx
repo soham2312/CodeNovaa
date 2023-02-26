@@ -9,12 +9,12 @@ import "./tempheader.css";
 // import { IoNewspaper } from "react-icons/io5";
 
 const Menu = () => {
-  return (
+  return ( 
     <div className="menu">
       <NavLink to="/" className="menu-link">
         Questions
       </NavLink>
-      <NavLink to="discusssion" className="menu-link">
+      <NavLink to="discussion" className="menu-link">
         Discussion
       </NavLink>
       <NavLink to="chat" className="menu-link">

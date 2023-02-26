@@ -1,0 +1,36 @@
+.discussion-Ask{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 15px;
+
+}
+.discussion-question{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 10px;
+    
+    width: 590px;
+    
+    background: #FFFFFF;
+    border: 1px solid #E6E6E6;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+
+}
+.discussion{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 30px;
+
+width: 590px;
+
+}
+textarea:focus, input:focus{
+    outline: none;
+}

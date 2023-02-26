@@ -1,14 +1,14 @@
 import React from "react";
-import "./Discussion.css";
+import "./DiscussionCard.css";
 import utkarsh from "../../assets/utkarsh.jpg";
 import { Link } from "react-router-dom";
 
-const Discussion = () => {
+const DiscussionCard = ({item}) => {
   return (
-    <div className="discussion">
+    <div className="discussion-card">
       <div className="discussion-content">
         <p className="discussion-content-question">
-          Microsoft Online Assessment Questions
+          {item.title}
         </p>
         <div className="discussion-chat-user-img">
           <img src={utkarsh} alt="utkarsh" />
@@ -24,4 +24,4 @@ const Discussion = () => {
   );
 };
 
-export default Discussion;
+export default DiscussionCard;
