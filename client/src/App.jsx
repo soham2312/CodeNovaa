@@ -13,6 +13,7 @@ import Login from "./pages/Login/Login";
 
 import Geeksforgeeks from "./components/platform/Geeksforgeeks";
 import Social from "./pages/Social/Social";
+import Discussion from "./pages/Discussion/Discussion";
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="" element={<Home />} />
+          <Route path="discussion" element={<Discussion />} />
+          
           <Route path="chat" element={<Chat />} />
           <Route path="login" element={<Login />} />
           <Route path="social" element={<Social />} />
