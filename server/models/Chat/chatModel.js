@@ -20,8 +20,19 @@ const chatSchema = mongoose.Schema(
     },
     chatName: {
       type: String,
-      default: null,
     },
+    upvotes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    downvotes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     timeStamps: true,
