@@ -14,4 +14,6 @@ router
   .route("/discussion")
   .get(authController.protect, chatController.getAllDiscussion);
 
+router.route("/vote/:id").post(authController.protect, chatController.doVotes);
+
 module.exports = router;
