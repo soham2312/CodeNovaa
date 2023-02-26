@@ -7,7 +7,11 @@ const router = express.Router();
 router.route("/").post(authController.protect, chatController.acessChat);
 router.route("/").get(authController.protect, chatController.fetchChats);
 router
-  .route("/group")
+  .route("/create-discussion")
   .post(authController.protect, chatController.createGroupChat);
+
+router
+  .route("/discussion")
+  .get(authController.protect, chatController.getAllDiscussion);
 
 module.exports = router;

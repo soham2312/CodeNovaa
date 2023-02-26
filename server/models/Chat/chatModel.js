@@ -14,6 +14,14 @@ const chatSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Message",
     },
+    groupCreater: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    chatName: {
+      type: String,
+      default: null,
+    },
   },
   {
     timeStamps: true,
