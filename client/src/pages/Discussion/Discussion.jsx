@@ -6,56 +6,125 @@ import "./Discussion.css";
 import { Link } from "react-router-dom";
 import DiscussionCard from "../../components/DiscussionCard/DiscussionCard";
 
-const data=[
-{
-    "id": 1,
-    "title": "Microsoft Online Assessment Questions",
-},{
-
-    "id": 2,
-    "title": "Google Online Assessment Questions",
-},
-{
-    "id": 3,
-    "title": "Amazon Online Assessment Questions",
-},
-{
-    "id": 4,
-    "title": "Facebook Online Assessment Questions",
-},
-{
-    "id": 5,
-    "title": "Striver Dsa Sheet",
-},
-{
-    "id": 6,
-    "title": "Babbar Dsa Sheet",
-},
-{
-    "id": 7,
-    "title": "Placement Questions",
-}
-]
-
+const data = [
+  {
+    id: 1,
+    title: "Microsoft Online Assessment Questions",
+  },
+  {
+    id: 2,
+    title: "Google Online Assessment Questions",
+  },
+  {
+    id: 3,
+    title: "Amazon Online Assessment Questions",
+  },
+  {
+    id: 4,
+    title: "Facebook Online Assessment Questions",
+  },
+  {
+    id: 5,
+    title: "Striver Dsa Sheet",
+  },
+  {
+    id: 6,
+    title: "Babbar Dsa Sheet",
+  },
+  {
+    id: 7,
+    title: "Placement Questions",
+  },
+];
 
 const Discussion = () => {
-    return( 
-        <div>
-            <div className="discussion-Ask">
-                <h4>Home</h4>
-               <div className="discussion-question">
-                <input type="text" className="discussion-question-input"></input>
-               </div>
-                <Link to="/discussion" className="btn-discussion">Create Discussion</Link>
-            </div>
-        <div className="discussion">
-                {data?data.map((item)=>(
-                    <DiscussionCard item={item}/>
-                )):<p>Loading...</p>}
-               {/* <DiscussionCard/> */}
-               
+  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+
+  const [newDiscussion, setNewDiscussion] = useState("");
+  const [discussion, setDiscussion] = useState([]);
+  const [discussionName, setDiscussionName] = useState("");
+  const handleClick = async () => {
+    if (!discussionName) {
+      alert("Enter discussion Name");
+    } else {
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        const { data } = await axios.post(
+          `http://localhost:5000/api/v1/chat/create-discussion`,
+          {
+            chatName: discussionName,
+          },
+          config
+        );
+        setNewDiscussion(data);
+
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  const pageLoad = async () => {
+    // console.log(user);
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.get(
+        `http://localhost:5000/api/v1/chat/discussion`,
+        config
+      );
+      setDiscussion(data);
+      //   console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    pageLoad();
+  }, []);
+
+  useEffect(() => {
+    setDiscussion([...discussion, newDiscussion]);
+  }, [newDiscussion]);
+
+  return (
+    <div>
+      <div className="discussion-Ask">
+        <h4>Home</h4>
+        <div className="discussion-question">
+          <input
+            type="text"
+            className="discussion-question-input"
+            placeholder="Create New discussion"
+            value={discussionName}
+            onChange={(e) => {
+              setDiscussionName(e.target.value);
+            }}
+          />
         </div>
-        </div>
-    )
-}
-export default Discussion; 
+        <button className="btn" onClick={handleClick}>
+          Create
+        </button>
+      </div>
+      <div className="discussion">
+        {discussion ? (
+          discussion.map((item) => <DiscussionCard item={item} />)
+        ) : (
+          <p>Loading...</p>
+        )}
+        {/* <DiscussionCard/> */}
+      </div>
+    </div>
+  );
+};
+export default Discussion;
