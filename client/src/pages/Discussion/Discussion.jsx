@@ -4,6 +4,8 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import "./Discussion.css";
 import { Link } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+
 import DiscussionCard from "../../components/DiscussionCard/DiscussionCard";
 
 const data = [
@@ -98,23 +100,38 @@ const Discussion = () => {
   }, [newDiscussion]);
 
   return (
-    <div>
+    <>
       <div className="discussion-Ask">
-        <h4>Home</h4>
         <div className="discussion-question">
-          <input
-            type="text"
+          <TextField
+            id="filled-basic"
+            label="Create New Discussion / Ask new question"
+            variant="outlined"
             className="discussion-question-input"
-            placeholder="Create New discussion"
             value={discussionName}
             onChange={(e) => {
               setDiscussionName(e.target.value);
             }}
           />
+          <TextField
+            id="filled-basic"
+            label="Add description of question"
+            variant="outlined"
+            multiline
+            className="discussion-question-input"
+          />
+          <TextField
+            id="filled-multiline-static"
+            label="Multiline"
+            multiline
+            defaultValue="Default Value"
+            variant="filled"
+            className="discussion-question-input"
+          />
+          <a className="btn-cta-orange" onClick={handleClick}>
+            Create Discussion
+          </a>
         </div>
-        <button className="btn" onClick={handleClick}>
-          Create
-        </button>
       </div>
       <div className="discussion">
         {discussion ? (
@@ -124,7 +141,7 @@ const Discussion = () => {
         )}
         {/* <DiscussionCard/> */}
       </div>
-    </div>
+    </>
   );
 };
 export default Discussion;
