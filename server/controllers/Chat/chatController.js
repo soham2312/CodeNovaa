@@ -233,14 +233,3 @@ exports.doVotes = catchAsync(async (req, res, next) => {
     });
   }
 });
-
-exports.deleteDiscussion = catchAsync(async (req, res, next) => {
-  const chatId = req.body.chatId;
-  await Chat.findByIdAndDelete(chatId);
-
-  const chatMessage = Message.deleteMany({ chat: chatId });
-  console.log(chatMessage);
-  res.status(201).json({
-    status: "success",
-  });
-});
