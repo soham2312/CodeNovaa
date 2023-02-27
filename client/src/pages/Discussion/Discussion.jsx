@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField";
 import DiscussionCard from "../../components/DiscussionCard/DiscussionCard";
 
 const Discussion = () => {
-  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const { user } = ChatState();
 
   const [newDiscussion, setNewDiscussion] = useState("");
   const [discussion, setDiscussion] = useState([]);
