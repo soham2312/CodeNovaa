@@ -16,12 +16,12 @@ router
 
 router.route("/vote/:id").post(authController.protect, chatController.doVotes);
 
-router
-  .route("/delete-discussion")
-  .delete(
-    authController.protect,
-    authController.restrictTo("admin"),
-    chatController.deleteDiscussion
-  );
+// router
+//   .route("/delete-discussion")
+//   .delete(
+//     authController.protect,
+//     authController.restrictTo("admin"),
+//     chatController.deleteDiscussion
+//   );
 
 module.exports = router;

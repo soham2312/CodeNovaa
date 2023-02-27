@@ -8,6 +8,7 @@ const globalErrorController = require("./controllers/errorController");
 const userRouter = require("./routes/userRoutes");
 const chatRoutes = require("./routes/Chat/chatRoutes");
 const messageRoutes = require("./routes/Chat/messageRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 const app = express();
 
 //Middle ware for cors permission
@@ -27,6 +28,7 @@ app.use("/api/v1/users", userRouter);
 // app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/chat", chatRoutes);
 app.use("/api/v1/message", messageRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 //Route of global error handler
 app.use(globalErrorController);
