@@ -9,7 +9,7 @@ import "./tempheader.css";
 // import { IoNewspaper } from "react-icons/io5";
 
 const Menu = () => {
-  return ( 
+  return (
     <div className="menu">
       <NavLink to="/" className="menu-link">
         Questions
@@ -28,7 +28,7 @@ const Menu = () => {
 };
 
 const Header = () => {
-  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const { user } = ChatState();
 
   return (
     <div className="header">

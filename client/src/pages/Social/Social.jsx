@@ -10,7 +10,7 @@ const Social = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user, chats, setChats, setSelectedChat } = ChatState();
+  const { user } = ChatState();
 
   const handleSearch = async () => {
     try {
@@ -26,10 +26,10 @@ const Social = () => {
         config
       );
       setSearchResult(data.users);
-      console.log(data.users);
+      // console.log(data.users);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   useEffect(() => {
