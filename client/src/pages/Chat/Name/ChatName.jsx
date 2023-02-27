@@ -8,7 +8,7 @@ const ChatName = () => {
 
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
   const fetchChats = async () => {
-    // console.log(user.data.user.name);
+    console.log(user);
     try {
       const config = {
         headers: {
@@ -20,7 +20,7 @@ const ChatName = () => {
         "http://localhost:5000/api/v1/chat",
         config
       );
-      // console.log(data);
+      console.log(data);
       setChats(data);
     } catch (error) {
       console.log(error);
@@ -35,7 +35,7 @@ const ChatName = () => {
   return (
     <div>
       {/* {chats && chats.map((chat) => <div className="myChats">{chat.name}</div>)} */}
-      {chats &&
+      {chats ? (
         chats.map((chat) => (
           <div
             className="myChats"
@@ -56,7 +56,10 @@ const ChatName = () => {
                 : chat.users[0].name}
             </p>
           </div>
-        ))}
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };

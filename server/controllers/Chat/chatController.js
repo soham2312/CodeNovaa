@@ -3,10 +3,11 @@ const AppError = require("./../../utils/appError");
 const catchAsync = require("./../../utils/catchAsync");
 const Chat = require("./../../models/Chat/chatModel");
 const User = require("./../../models/userModel");
+const Message = require("../../models/Chat/messageModel");
 
 exports.acessChat = catchAsync(async (req, res) => {
   const { userId } = req.body;
-  console.log(userId);
+  // console.log(userId);
   if (!userId) {
     console.log("UserId param not sent with request");
     return res.sendStatus(400);
@@ -20,7 +21,7 @@ exports.acessChat = catchAsync(async (req, res) => {
   })
     .populate("users", "-password")
     .populate("latestMessage");
-
+  // console.log(isChat);
   isChat = await User.populate(isChat, {
     path: "latestMessage.sender",
     select: "name email",
@@ -52,6 +53,7 @@ exports.acessChat = catchAsync(async (req, res) => {
 exports.fetchChats = async (req, res) => {
   try {
     const chat = await Chat.find({
+      isGroupChat: false,
       users: { $elemMatch: { $eq: req.user._id } },
     }).populate("users", "-password");
     res.send(chat);
@@ -65,18 +67,6 @@ exports.fetchChats = async (req, res) => {
 };
 
 exports.createGroupChat = catchAsync(async (req, res) => {
-  // if (!req.body.users || !req.body.name) {
-  //   return res.status(400).send({ message: "Please fill the field" });
-  // }
-  // var users = JSON.parse(req.body.users);
-  // if (users.lenght < 2) {
-
-  //   return res
-  //     .status(400)
-  //     .send("more than 2 users are required for a group chat");
-  // }
-  // users.push(req.user);
-
   try {
     var users = [];
     users.push(req.user._id);
@@ -99,51 +89,6 @@ exports.createGroupChat = catchAsync(async (req, res) => {
     });
   }
 });
-
-// exports.addToGroup = catchAsync(async (req, res, next) => {
-//   const { chatId } = req.body;
-//   const userId = req.user._id;
-//   // check if the requester is admin
-
-//   var isChat = await Chat.find({
-//     isGroupChat: true,
-//     _id:chatId,
-//     $and: [
-
-//       { users: { $elemMatch: { $eq: userId } } },
-//     ],
-//   })
-//     .populate("users", "-password")
-//     // .populate("latestMessage");
-
-//   // isChat = await User.populate(isChat, {
-//   //   path: "latestMessage.sender",
-//   //   select: "name email",
-//   // });
-
-//   if (isChat.length > 0) {
-//     res.send(isChat[0]);
-//   }
-
-//   const added = await Chat.findByIdAndUpdate(
-//     chatId,
-//     {
-//       $push: { users: userId },
-//     },
-//     {
-//       new: true,
-//     }
-//   )
-//     .populate("users", "-password")
-//     .populate("groupCreater", "-password");
-
-//   if (!added) {
-//     // res.status(404);
-//     return next(new AppError("Chat Not Found", 404));
-//   } else {
-//     res.json(added);
-//   }
-// });
 
 exports.getAllDiscussion = catchAsync(async (req, res, next) => {
   try {
@@ -287,4 +232,15 @@ exports.doVotes = catchAsync(async (req, res, next) => {
       users: votesdown.downvotes,
     });
   }
+});
+
+exports.deleteDiscussion = catchAsync(async (req, res, next) => {
+  const chatId = req.body.chatId;
+  await Chat.findByIdAndDelete(chatId);
+
+  const chatMessage = Message.deleteMany({ chat: chatId });
+  console.log(chatMessage);
+  res.status(201).json({
+    status: "success",
+  });
 });

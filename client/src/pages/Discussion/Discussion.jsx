@@ -6,37 +6,6 @@ import "./Discussion.css";
 import { Link } from "react-router-dom";
 import DiscussionCard from "../../components/DiscussionCard/DiscussionCard";
 
-const data = [
-  {
-    id: 1,
-    title: "Microsoft Online Assessment Questions",
-  },
-  {
-    id: 2,
-    title: "Google Online Assessment Questions",
-  },
-  {
-    id: 3,
-    title: "Amazon Online Assessment Questions",
-  },
-  {
-    id: 4,
-    title: "Facebook Online Assessment Questions",
-  },
-  {
-    id: 5,
-    title: "Striver Dsa Sheet",
-  },
-  {
-    id: 6,
-    title: "Babbar Dsa Sheet",
-  },
-  {
-    id: 7,
-    title: "Placement Questions",
-  },
-];
-
 const Discussion = () => {
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
 
