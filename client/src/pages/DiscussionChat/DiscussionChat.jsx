@@ -10,6 +10,8 @@ import "./DiscussionChat.css";
 import DiscussionAnswer from "../../components/DiscussionAnswer/DiscussionAnswer";
 import TextField from "@mui/material/TextField";
 import utkarsh from "../../assets/utkarsh.jpg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const DiscussionChat = () => {
@@ -18,6 +20,8 @@ const DiscussionChat = () => {
   const [discussionData, setDiscussionData] = useState({});
   const [messages, setMessages] = useState([]);
 
+  const [answer, setAnswer] = useState("");
+  const [answercode, setAnswercode] = useState("");
   // update this
   const [up, setUp] = useState(0);
   const [down, setDown] = useState(0);
@@ -54,7 +58,7 @@ const DiscussionChat = () => {
         config
       );
 
-      console.log(data.chat[0]);
+      // console.log(data.chat[0]);
       setDiscussionData(data.chat[0]);
 
       const message = await axios.get(
@@ -62,12 +66,44 @@ const DiscussionChat = () => {
 
         config
       );
-      console.log(message);
+      // console.log(message);
       setMessages(message.data);
       //   console.log(data[1].content);
       //   setLoading(false);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleClick = async () => {
+    if (answer === "") {
+      toast.error("Enter Your Answer", {
+        autoClose: 2000,
+      });
+    } else {
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("userInfo")).token
+            }`,
+          },
+        };
+        const { data } = await axios.post(
+          `http://localhost:5000/api/v1/message/`,
+          { content: answer, code: answercode, chatId: discussionData._id },
+          config
+        );
+        console.log(data);
+        setMessages([messages, ...data]);
+        setAnswer("");
+        setAnswercode("");
+        // console.log(data.chat[0]);
+        // setDiscussionData(data.chat[0]);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -144,6 +180,10 @@ const DiscussionChat = () => {
             label="Write your answer"
             variant="outlined"
             multiline
+            value={answer}
+            onChange={(e) => {
+              setAnswer(e.target.value);
+            }}
             className="discussion-question-input"
           />
           <TextField
@@ -151,16 +191,22 @@ const DiscussionChat = () => {
             label="Add code here"
             multiline
             variant="filled"
+            value={answercode}
+            onChange={(e) => {
+              setAnswercode(e.target.value);
+            }}
             className="discussion-question-input"
           />
         </div>
-        <Link to="/" className="btn-cta-orange">
+        <div onClick={handleClick} className="btn-cta-orange">
           Post Answer
-        </Link>
+        </div>
       </div>
       <div className="discussion-chat-comments">
         {messages.length > 0
-          ? messages.map((item) => <DiscussionAnswer item={item} />)
+          ? messages.map((item) => (
+              <DiscussionAnswer item={item} key={item._id} />
+            ))
           : "Loading..."}
 
         {/* <DiscussionAnswer />
