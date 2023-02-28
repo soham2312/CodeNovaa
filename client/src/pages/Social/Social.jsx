@@ -54,7 +54,9 @@ const Social = () => {
         />
         <div className="user-card">
           {searchResult.length !== 0 ? (
-            searchResult.map((user) => <SocialCard user={user} />)
+            searchResult.map((user) => (
+              <SocialCard user={user} key={user._id} />
+            ))
           ) : (
             <p>user not found</p>
           )}

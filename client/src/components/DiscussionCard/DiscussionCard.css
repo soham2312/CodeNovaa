@@ -84,6 +84,12 @@
   width: 69px;
   background: #ffffe0;
   border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+.discussion-card-upvote:hover {
+  background: #f5f573;
 }
 
 .discussion-card-downvote {
@@ -94,6 +100,12 @@
   width: 69px;
   background: #efefed;
   border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+.discussion-card-downvote:hover {
+  background: #c7c7c6;
 }
 
 .discussion-card-comment {
@@ -101,6 +113,14 @@
   align-items: center;
   gap: 5px;
   padding: 3px 6px;
+}
+
+.discussion-card-comment-link {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
 .discussion-card-comment img {
