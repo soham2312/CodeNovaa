@@ -8,6 +8,7 @@ import { BsThreeDotsVertical, BsShare, BsBookmark } from "react-icons/bs";
 import { GoReport } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
 import "./DiscussionChat.css";
+import DiscussionAnswer from "../../components/DiscussionAnswer/DiscussionAnswer";
 import utkarsh from "../../assets/utkarsh.jpg";
 
 const DiscussionChat = () => {
@@ -35,7 +36,7 @@ const DiscussionChat = () => {
   console.log(slug);
 
   return (
-    <div>
+    <div className="discussion-chat">
       <div className="back-button" onClick={back}>
         <MdArrowBackIos />
       </div>
@@ -104,6 +105,11 @@ const DiscussionChat = () => {
             )}
           </div>
         </div>
+      </div>
+      <div className="discussion-chat-comments">
+        <DiscussionAnswer />
+        <DiscussionAnswer />
+        <DiscussionAnswer />
       </div>
     </div>
   );
