@@ -16,6 +16,8 @@ import Social from "./pages/Social/Social";
 import Discussion from "./pages/Discussion/Discussion";
 import AdminChat from "./pages/AdminChat/AdminChat";
 import DiscussionChat from "./pages/DiscussionChat/DiscussionChat";
+import Error from "./pages/Error/Error";
+
 function App() {
   return (
     <div className="App">
@@ -25,11 +27,11 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="discussion" element={<Discussion />} />
           <Route path="discussion/:slug" element={<DiscussionChat />} />
-
           <Route path="admin-chats" element={<AdminChat />} />
           <Route path="chat" element={<Chat />} />
           <Route path="login" element={<Login />} />
           <Route path="social" element={<Social />} />
+          <Route path="*" element={<Error />} />
           <Route path="me" element={<Me />}>
             <Route path="codeforces" element={<Codeforces />} />
             <Route path="codechef" element={<Codechef />} />

@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { MdArrowBackIos } from "react-icons/md ";
-
 import { BiUpvote, BiDownvote, BiComment } from "react-icons/bi";
 import { BsThreeDotsVertical, BsShare, BsBookmark } from "react-icons/bs";
 import { GoReport } from "react-icons/go";

@@ -9,29 +9,6 @@ const DiscussionAnswer = () => {
   const [up, setUp] = useState(0);
   const [down, setDown] = useState(0);
 
-  const copyBoard = () => {
-    navigator.clipboard.writeText(this.state.textToCopy);
-  };
-
-  const copyClipboard = (event) => {
-    e.preventDefault();
-
-    navigator.clipboard.writeText(event.target.textContent);
-
-    toast.success("Data copied!", {
-      autoClose: 2000,
-    });
-  };
-
-  // const copyClipboard = (e, data) => {
-  //   e.preventDefault();
-  //   console.log("hello");
-  //   navigator.clipboard.writeText(data);
-  //   toast.success("Data copied!", {
-  //     autoClose: 2000,
-  //   });
-  // };
-
   return (
     <div className="discussion-answer">
       <div className="discussion-answer-text">
@@ -45,7 +22,7 @@ const DiscussionAnswer = () => {
         className="discussion-chat-question-code"
         onClick={(e) => {
           e.preventDefault();
-          navigator.clipboard.writeText(event.target.textContent);
+          navigator.clipboard.writeText(e.target.textContent);
           toast.success("Text copied!", {
             autoClose: 1000,
           });

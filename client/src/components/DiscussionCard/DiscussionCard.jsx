@@ -16,6 +16,7 @@ const DiscussionCard = ({ item }) => {
   const [open, setOpen] = useState(false);
   const [up, setUp] = useState(item.upvotes ? item.upvotes.length : 0);
   const [down, setDown] = useState(item.downvotes ? item.downvotes.length : 0);
+
   const openPopup = () => {
     setOpen(!open);
   };
