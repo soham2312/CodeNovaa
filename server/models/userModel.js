@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
-
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,8 +15,8 @@ const userSchema = new mongoose.Schema({
     validate: [validator.isEmail, "Please provide valid Email"],
   },
   photo: {
-    type:String,
-    default:'default.jpg'
+    type: String,
+    default: "default.jpg",
   },
   role: {
     type: String,
@@ -43,11 +42,11 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
-  active:{
-    type:Boolean,
-    default:true,
-    select:false
-  }
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 userSchema.pre("save", async function () {
@@ -65,7 +64,7 @@ userSchema.pre("save", async function () {
 //   next();
 // });
 
-userSchema.pre(/^find/, function(next) {
+userSchema.pre(/^find/, function (next) {
   // this points to the current query
   this.find({ active: { $ne: false } });
   next();
@@ -77,8 +76,6 @@ userSchema.methods.correctPassword = async (
 ) => {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
-
-
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

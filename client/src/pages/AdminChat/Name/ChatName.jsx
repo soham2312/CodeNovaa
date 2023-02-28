@@ -8,7 +8,7 @@ const ChatName = () => {
 
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
   const fetchChats = async () => {
-    console.log(user);
+    // console.log(user);
     try {
       const config = {
         headers: {

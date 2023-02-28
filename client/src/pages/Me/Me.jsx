@@ -33,7 +33,8 @@ const Me = () => {
         <div className="photo">
           <img src={userpic} alt="user" />
         </div>
-        {user.data.user.role === "admin" ? (
+        {JSON.parse(localStorage.getItem("userInfo")).data.user.role ===
+        "admin" ? (
           // <button className="btn">View Chats</button>
           <Link to="/admin-chats">View Chats</Link>
         ) : (
