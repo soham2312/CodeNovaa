@@ -110,16 +110,17 @@ exports.doVotes = catchAsync(async (req, res, next) => {
   const userId = req.user._id;
   const vote = req.body.vote;
   if (vote === "up") {
+    // console.log(chatId, userId, vote);
     const isPresent = await Chat.find({
-      chatId,
+      _id: chatId,
       isGroupChat: true,
       $and: [{ upvotes: { $elemMatch: { $eq: req.user._id } } }],
     });
 
     const isDisLiked = await Chat.find({
-      chatId,
+      _id: chatId,
       isGroupChat: true,
-      $and: [{ upvotes: { $elemMatch: { $eq: req.user._id } } }],
+      $and: [{ downvotes: { $elemMatch: { $eq: req.user._id } } }],
     });
 
     if (isDisLiked.length > 0) {
@@ -134,9 +135,9 @@ exports.doVotes = catchAsync(async (req, res, next) => {
       );
     }
 
-    console.log(isPresent);
     if (isPresent.length > 0) {
       try {
+        // console.log("Nooooooooooooooo");
         await Chat.findByIdAndUpdate(
           chatId,
           {
@@ -150,50 +151,66 @@ exports.doVotes = catchAsync(async (req, res, next) => {
         res.status(401).json({ error: err });
       }
     } else {
-      await Chat.findByIdAndUpdate(
-        chatId,
-        {
-          $push: { upvotes: userId },
-        },
-        {
-          new: true,
-        }
-      );
+      try {
+        // console.log("I am here");
+        await Chat.findByIdAndUpdate(
+          chatId,
+          {
+            $push: { upvotes: userId },
+          },
+          {
+            new: true,
+          }
+        );
+      } catch (err) {
+        console.log(err);
+      }
     }
-    const voteup = await Chat.findById(chatId).populate(
-      "upvotes",
+    const votes = await Chat.findById(chatId).populate(
+      "downvotes upvotes",
       "name photo"
     );
-    // console.log(voteup);
     res.status(201).json({
       status: "success",
-      upvotes: voteup.upvotes.length,
-      users: voteup.upvotes,
+      downvotes: votes.downvotes.length,
+      usersdown: votes.downvotes,
+      upvotes: votes.upvotes.length,
+      usersup: votes.upvotes,
     });
   } else {
     const isPresent = await Chat.find({
-      chatId,
+      _id: chatId,
       isGroupChat: true,
       $and: [{ downvotes: { $elemMatch: { $eq: req.user._id } } }],
     });
 
-    const isLiked = await Chat.find({
+    // const isLiked = await Chat.find({
+    //   _id: chatId,
+    //   isGroupChat: true,
+    //   $and: [{ upvotes: { $elemMatch: { $eq: req.user._id } } }],
+    // });
+    await Chat.findByIdAndUpdate(
       chatId,
-      isGroupChat: true,
-      $and: [{ upvotes: { $elemMatch: { $eq: req.user._id } } }],
-    });
-    console.log(isLiked);
-    if (isLiked.length > 0) {
-      await Chat.findByIdAndUpdate(
-        chatId,
-        {
-          $pull: { upvotes: userId },
-        },
-        {
-          new: true,
-        }
-      );
-    }
+      {
+        $pull: { upvotes: userId },
+      },
+      {
+        new: true,
+      }
+    );
+    // console.log("------------isLiked-------------------");
+    // console.log(isLiked);
+    // if (isLiked.length > 0) {
+    //   await Chat.findByIdAndUpdate(
+    //     chatId,
+    //     {
+    //       $pull: { upvotes: userId },
+    //     },
+    //     {
+    //       new: true,
+    //     }
+    //   );
+    // }
 
     // console.log(isPresent);
     if (isPresent.length > 0) {
@@ -222,14 +239,16 @@ exports.doVotes = catchAsync(async (req, res, next) => {
       );
     }
 
-    const votesdown = await await Chat.findById(chatId).populate(
-      "downvotes",
+    const votes = await Chat.findById(chatId).populate(
+      "downvotes upvotes",
       "name photo"
     );
     res.status(201).json({
       status: "success",
-      downvotes: votesdown.downvotes.length,
-      users: votesdown.downvotes,
+      downvotes: votes.downvotes.length,
+      usersdown: votes.downvotes,
+      upvotes: votes.upvotes.length,
+      usersup: votes.upvotes,
     });
   }
 });

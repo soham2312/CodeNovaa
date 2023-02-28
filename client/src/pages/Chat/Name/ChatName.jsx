@@ -8,11 +8,13 @@ const ChatName = () => {
 
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
   const fetchChats = async () => {
-    console.log(user);
+    // console.log(user);
     try {
       const config = {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
         },
       };
 
