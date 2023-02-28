@@ -9,10 +9,6 @@ const DiscussionAnswer = ({ item }) => {
   const [up, setUp] = useState(0);
   const [down, setDown] = useState(0);
 
-  // console.log("---------answer--------------");
-  console.log(item);
-  // console.log("---------answer--------------");
-
   return (
     <div className="discussion-answer">
       <div className="discussion-answer-text">

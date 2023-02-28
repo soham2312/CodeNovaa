@@ -8,6 +8,7 @@ import { GoReport } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
 import "./DiscussionChat.css";
 import DiscussionAnswer from "../../components/DiscussionAnswer/DiscussionAnswer";
+import TextField from "@mui/material/TextField";
 import utkarsh from "../../assets/utkarsh.jpg";
 import axios from "axios";
 
@@ -134,6 +135,28 @@ const DiscussionChat = () => {
             )}
           </div>
         </div>
+      </div>
+      <div className="discussion-answer-self">
+        <h3>Your Answer</h3>
+        <div>
+          <TextField
+            id="filled-basic"
+            label="Write your answer"
+            variant="outlined"
+            multiline
+            className="discussion-question-input"
+          />
+          <TextField
+            id="filled-multiline-static"
+            label="Add code here"
+            multiline
+            variant="filled"
+            className="discussion-question-input"
+          />
+        </div>
+        <Link to="/" className="btn-cta-orange">
+          Post Answer
+        </Link>
       </div>
       <div className="discussion-chat-comments">
         {messages.length > 0
