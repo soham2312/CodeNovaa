@@ -7,7 +7,7 @@ const router = express.Router();
 
 router
   .route("/delete-discussion")
-  .delete(
+  .post(
     authController.protect,
     authController.restrictTo("admin"),
     adminController.deleteDiscussion

@@ -6,10 +6,13 @@ import { BiUpvote, BiDownvote, BiComment } from "react-icons/bi";
 import { BsThreeDotsVertical, BsShare, BsBookmark } from "react-icons/bs";
 import { GoReport } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
+import { AiTwotoneDelete } from "react-icons/ai";
 import axios from "axios";
+import { ChatState } from "../../context/ChatProvider";
 
 const DiscussionCard = ({ item }) => {
-  // console.log(item);
+  const { user, setUser } = ChatState();
+  // console.log(item.slug);
   const [open, setOpen] = useState(false);
   const [up, setUp] = useState(item.upvotes ? item.upvotes.length : 0);
   const [down, setDown] = useState(item.downvotes ? item.downvotes.length : 0);
@@ -62,6 +65,29 @@ const DiscussionCard = ({ item }) => {
       console.error(err);
     }
   };
+
+  const handleDelete = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://localhost:5000/api/v1/admin/delete-discussion",
+        { chatId: item._id },
+        config
+      );
+      console.log(data);
+
+      // console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <div className="discussion-card">
       <div className="discussion-card-content">
@@ -74,7 +100,8 @@ const DiscussionCard = ({ item }) => {
             <h4>{item.groupCreater ? item.groupCreater.name : ""}</h4>
           </div>
         </div>
-        <Link to="/" className="btn-cta-orange">
+
+        <Link to={item ? item.slug : "/"} className="btn-cta-orange">
           Join Discussion
         </Link>
       </div>
@@ -99,6 +126,11 @@ const DiscussionCard = ({ item }) => {
             <img src={utkarsh} alt="" />
           </Link>
         </div>
+        {user.data.user.role === "admin" ? (
+          <AiTwotoneDelete onClick={handleDelete} />
+        ) : (
+          ""
+        )}
         <div className="discussion-card-dropdown" onClick={openPopup}>
           {open ? <RxCross1 /> : <BsThreeDotsVertical />}
           {open && (

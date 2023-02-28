@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const chatSchema = mongoose.Schema(
   {
     chatName: { type: String, trim: true },
     isGroupChat: { type: Boolean, default: false },
+    slug: String,
     users: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -38,6 +40,12 @@ const chatSchema = mongoose.Schema(
     timeStamps: true,
   }
 );
+
+// DOCUMENT MIDDLEWARE: runs before .save() and .create()
+chatSchema.pre("save", function (next) {
+  this.slug = slugify(this.chatName, { lower: true });
+  next();
+});
 
 const Chat = mongoose.model("Chat", chatSchema);
 

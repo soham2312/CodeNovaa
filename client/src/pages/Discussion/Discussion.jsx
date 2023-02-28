@@ -14,6 +14,8 @@ const Discussion = () => {
   const [newDiscussion, setNewDiscussion] = useState("");
   const [discussion, setDiscussion] = useState([]);
   const [discussionName, setDiscussionName] = useState("");
+  const [discription, setDiscription] = useState("");
+  const [code, setCode] = useState("");
   const handleClick = async () => {
     if (!discussionName) {
       alert("Enter discussion Name");
@@ -29,20 +31,25 @@ const Discussion = () => {
           `http://localhost:5000/api/v1/chat/create-discussion`,
           {
             chatName: discussionName,
+            discription: discription,
+            code: code,
           },
           config
         );
         setNewDiscussion(data);
 
-        console.log(data);
+        // console.log(data);
+        setCode("");
+        setDiscription("");
+        setDiscussionName("");
       } catch (error) {
         console.log(error);
       }
     }
   };
   const pageLoad = async () => {
-    console.log("inside page load");
-    console.log(user);
+    // console.log("inside page load");
+    // console.log(user);
     try {
       const config = {
         headers: {
@@ -96,7 +103,11 @@ const Discussion = () => {
             label="Add description of question"
             variant="outlined"
             multiline
+            value={discription}
             className="discussion-question-input"
+            onChange={(e) => {
+              setDiscription(e.target.value);
+            }}
           />
           <TextField
             id="filled-multiline-static"
@@ -104,7 +115,11 @@ const Discussion = () => {
             multiline
             defaultValue="Default Value"
             variant="filled"
+            value={code}
             className="discussion-question-input"
+            onChange={(e) => {
+              setCode(e.target.value);
+            }}
           />
           <a className="btn-cta-orange" onClick={handleClick}>
             Create Discussion

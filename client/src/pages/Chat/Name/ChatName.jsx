@@ -22,7 +22,7 @@ const ChatName = () => {
         "http://localhost:5000/api/v1/chat",
         config
       );
-      console.log(data);
+      // console.log(data);
       setChats(data);
     } catch (error) {
       console.log(error);
