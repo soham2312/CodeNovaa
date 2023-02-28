@@ -1,3 +1,11 @@
+.discussion-page {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin: 50px 0;
+  align-items: center;
+}
+
 .discussion-Ask {
   display: flex;
   flex-direction: column;

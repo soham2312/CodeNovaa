@@ -85,7 +85,7 @@ const Discussion = () => {
   }, [newDiscussion]);
 
   return (
-    <>
+    <div className="discussion-page">
       <div className="discussion-Ask">
         <div className="discussion-question">
           <TextField
@@ -111,9 +111,8 @@ const Discussion = () => {
           />
           <TextField
             id="filled-multiline-static"
-            label="Multiline"
+            label="Code"
             multiline
-            defaultValue="Default Value"
             variant="filled"
             value={code}
             className="discussion-question-input"
@@ -128,13 +127,15 @@ const Discussion = () => {
       </div>
       <div className="discussion">
         {discussion ? (
-          discussion.map((item) => <DiscussionCard item={item} />)
+          discussion.map((item) => (
+            <DiscussionCard item={item} key={item._id} />
+          ))
         ) : (
           <p>Loading...</p>
         )}
         {/* <DiscussionCard/> */}
       </div>
-    </>
+    </div>
   );
 };
 export default Discussion;

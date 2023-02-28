@@ -109,22 +109,25 @@ const DiscussionCard = ({ item }) => {
 
       <div className="discussion-card-datas">
         <div className="discussion-card-data">
-          <div className="discussion-card-upvote">
-            <BiUpvote className="discussion-icon" onClick={handleUpVote} />{" "}
-            <p>{up}</p>
+          <div className="discussion-card-upvote" onClick={handleUpVote}>
+            <BiUpvote className="discussion-icon" /> <p>{up}</p>
           </div>
-          <div className="discussion-card-downvote">
-            <BiDownvote className="discussion-icon" onClick={handleDownVote} />{" "}
-            <p>{down}</p>
+          <div className="discussion-card-downvote" onClick={handleDownVote}>
+            <BiDownvote className="discussion-icon" /> <p>{down}</p>
           </div>
-          <Link to="/" className="discussion-card-comment">
-            <BiComment className="discussion-icon" />
-            <p>4</p>
+          <div className="discussion-card-comment">
+            <Link
+              to={item ? item.slug : "/"}
+              className="discussion-card-comment-link"
+            >
+              <BiComment className="discussion-icon" />
+              <p>4</p>
+            </Link>
             <img src={utkarsh} alt="" />
             <img src={utkarsh} alt="" />
             <img src={utkarsh} alt="" />
             <img src={utkarsh} alt="" />
-          </Link>
+          </div>
         </div>
         {user.data.user.role === "admin" ? (
           <AiTwotoneDelete onClick={handleDelete} />
