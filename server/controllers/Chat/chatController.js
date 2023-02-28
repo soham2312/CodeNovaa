@@ -72,6 +72,8 @@ exports.createGroupChat = catchAsync(async (req, res) => {
     users.push(req.user._id);
     const groupChat = await Chat.create({
       chatName: req.body.chatName,
+      discription: req.body.discription,
+      code: req.body.code,
       users: users,
       isGroupChat: true,
       groupCreater: req.user,
@@ -251,4 +253,16 @@ exports.doVotes = catchAsync(async (req, res, next) => {
       usersup: votes.upvotes,
     });
   }
+});
+
+exports.findBySlug = catchAsync(async (req, res, next) => {
+  const { slug } = req.body;
+  const chats = await Chat.find({ slug: slug }).populate("users", "-password");
+  // .populate("latestMessage");
+
+  console.log(chats);
+  res.status(200).json({
+    status: "success",
+    chat: chats,
+  });
 });

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { MdArrowBackIos } from "react-icons/md ";
@@ -10,9 +10,13 @@ import { RxCross1 } from "react-icons/rx";
 import "./DiscussionChat.css";
 import DiscussionAnswer from "../../components/DiscussionAnswer/DiscussionAnswer";
 import utkarsh from "../../assets/utkarsh.jpg";
+import axios from "axios";
 
 const DiscussionChat = () => {
+  const { slug } = useParams();
   const [open, setOpen] = useState(false);
+  const [discussionData, setDiscussionData] = useState({});
+  const [messages, setMessages] = useState([]);
 
   // update this
   const [up, setUp] = useState(0);
@@ -22,7 +26,6 @@ const DiscussionChat = () => {
     setOpen(!open);
   };
 
-  const { slug } = useParams();
   const navigate = useNavigate();
 
   const back = () => {
@@ -33,7 +36,44 @@ const DiscussionChat = () => {
     console.log("");
   };
 
-  console.log(slug);
+  // console.log(slug);
+
+  const pageLoad = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+      const { data } = await axios.post(
+        `http://localhost:5000/api/v1/chat/slug`,
+        { slug: slug },
+        config
+      );
+
+      console.log(data.chat[0]);
+      setDiscussionData(data.chat[0]);
+
+      const message = await axios.get(
+        `http://localhost:5000/api/v1/message/${data.chat[0]._id}`,
+
+        config
+      );
+      console.log(message);
+      setMessages(message.data);
+      //   console.log(data[1].content);
+      //   setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    pageLoad();
+  }, []);
 
   return (
     <div className="discussion-chat">
@@ -42,20 +82,10 @@ const DiscussionChat = () => {
       </div>
       <div className="discussion-chat-question">
         <div className="discussion-chat-question-content">
-          <h2>How to center a Div?</h2>
-          <p>
-            Hey I know to center div using flex property but I want to implement
-            it using some other method...
-          </p>
+          <h2>{discussionData.chatName ? discussionData.chatName : ""}</h2>
+          <p>{discussionData.discription ? discussionData.discription : ""}</p>
           <pre className="discussion-chat-question-code">
-            <code>
-              {`.discussion-chat-question {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-`}
-            </code>
+            <code>{`${discussionData.code ? discussionData.code : ""}`}</code>
           </pre>
         </div>
         <div className="discussion-chat-question-line"></div>
@@ -107,9 +137,12 @@ const DiscussionChat = () => {
         </div>
       </div>
       <div className="discussion-chat-comments">
-        <DiscussionAnswer />
-        <DiscussionAnswer />
-        <DiscussionAnswer />
+        {messages.length > 0
+          ? messages.map((item) => <DiscussionAnswer item={item} />)
+          : "Loading..."}
+
+        {/* <DiscussionAnswer />
+        <DiscussionAnswer /> */}
       </div>
     </div>
   );
