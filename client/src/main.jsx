@@ -5,9 +5,9 @@ import "./index.css";
 import ChatProvider from "./context/ChatProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <ChatProvider>
+  <ChatProvider>
+    <React.StrictMode>
       <App />
-    </ChatProvider>
-  </React.StrictMode>
+    </React.StrictMode>
+  </ChatProvider>
 );

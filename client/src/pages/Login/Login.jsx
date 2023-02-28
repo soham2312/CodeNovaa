@@ -33,7 +33,7 @@ const Login = () => {
         if (fdata) {
           console.log(data);
           localStorage.setItem("userInfo", JSON.stringify(data));
-          navigate("/chat");
+          navigate("/me");
         } else {
           throw new Error("Invalid");
         }

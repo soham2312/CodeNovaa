@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField";
 import DiscussionCard from "../../components/DiscussionCard/DiscussionCard";
 
 const Discussion = () => {
-  const { user } = ChatState();
+  const { user, setUser } = ChatState();
 
   const [newDiscussion, setNewDiscussion] = useState("");
   const [discussion, setDiscussion] = useState([]);
@@ -41,12 +41,15 @@ const Discussion = () => {
     }
   };
   const pageLoad = async () => {
-    // console.log(user);
+    console.log("inside page load");
+    console.log(user);
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
         },
       };
       const { data } = await axios.get(
@@ -60,8 +63,14 @@ const Discussion = () => {
     }
   };
 
+  // window.addEventListener("beforeunload", pageLoad);
+
   useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    setUser(userInfo);
+
     pageLoad();
+    // console.log("working");
   }, []);
 
   useEffect(() => {
