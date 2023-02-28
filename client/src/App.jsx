@@ -31,7 +31,6 @@ function App() {
           <Route path="chat" element={<Chat />} />
           <Route path="login" element={<Login />} />
           <Route path="social" element={<Social />} />
-          <Route path="*" element={<Error />} />
           <Route path="me" element={<Me />}>
             <Route path="codeforces" element={<Codeforces />} />
             <Route path="codechef" element={<Codechef />} />
@@ -39,6 +38,7 @@ function App() {
             <Route path="github" element={<Github />} />
             <Route path="geeksforgeeks" element={<Geeksforgeeks />} />
           </Route>
+          <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
     </div>
