@@ -16,13 +16,19 @@ const chatSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Message",
     },
+    discription: {
+      type: String,
+      trim: true,
+    },
+    code: {
+      type: String,
+      trim: true,
+    },
     groupCreater: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    chatName: {
-      type: String,
-    },
+
     upvotes: [
       {
         type: mongoose.Schema.Types.ObjectId,

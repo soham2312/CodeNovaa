@@ -5,7 +5,7 @@ const Chat = require("./../../models/Chat/chatModel");
 const AppError = require("../../utils/appError");
 
 exports.sendMessage = catchAsync(async (req, res, next) => {
-  const { content, chatId } = req.body;
+  const { content, chatId, code } = req.body;
 
   if (!content || !chatId) {
     console.log("Invalid data passed into request");
@@ -46,29 +46,53 @@ exports.sendMessage = catchAsync(async (req, res, next) => {
       return next(new AppError("Chat Not Found", 404));
     }
   }
+  if (code) {
+    var newMessage = {
+      sender: req.user._id,
+      content: content,
+      chat: chatId,
+      code: code,
+    };
+    try {
+      var message = await Message.create(newMessage);
+      message = await message.populate("sender", "name pic");
+      message = await message.populate("chat");
+      message = await User.populate(message, {
+        path: "sender",
+        select: "name photo email",
+      });
+      await Chat.findByIdAndUpdate(req.body.chatId, {
+        latestMessage: message,
+      });
+      res.status(201).json(message);
+    } catch (err) {
+      console.log(err);
 
-  var newMessage = {
-    sender: req.user._id,
-    content: content,
-    chat: chatId,
-  };
-  try {
-    var message = await Message.create(newMessage);
-    message = await message.populate("sender", "name pic");
-    message = await message.populate("chat");
-    message = await User.populate(message, {
-      path: "sender",
-      select: "name photo email",
-    });
-    await Chat.findByIdAndUpdate(req.body.chatId, {
-      latestMessage: message,
-    });
-    res.status(201).json(message);
-  } catch (err) {
-    console.log(err);
-    // res.status(400);
-    return next(new AppError(err.message, 400));
-    //  new Error(err.message);
+      return next(new AppError(err.message, 400));
+    }
+  } else {
+    var newMessage = {
+      sender: req.user._id,
+      content: content,
+      chat: chatId,
+    };
+    try {
+      var message = await Message.create(newMessage);
+      message = await message.populate("sender", "name pic");
+      message = await message.populate("chat");
+      message = await User.populate(message, {
+        path: "sender",
+        select: "name photo email",
+      });
+      await Chat.findByIdAndUpdate(req.body.chatId, {
+        latestMessage: message,
+      });
+      res.status(201).json(message);
+    } catch (err) {
+      console.log(err);
+
+      return next(new AppError(err.message, 400));
+    }
   }
 });
 

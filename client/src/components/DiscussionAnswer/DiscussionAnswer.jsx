@@ -5,17 +5,22 @@ import "./DiscussionAnswer.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DiscussionAnswer = () => {
+const DiscussionAnswer = ({ item }) => {
   const [up, setUp] = useState(0);
   const [down, setDown] = useState(0);
+
+  // console.log("---------answer--------------");
+  console.log(item);
+  // console.log("---------answer--------------");
 
   return (
     <div className="discussion-answer">
       <div className="discussion-answer-text">
-        <p>
+        {/* <p>
           Just add this CSS content into your CSS file. It will automatically
           center the content. Align horizontally to center in CSS:
-        </p>
+        </p> */}
+        <p>{item.content ? item.content : ""}</p>
       </div>
 
       <pre
@@ -28,18 +33,15 @@ const DiscussionAnswer = () => {
           });
         }}
       >
-        <code>{`#outer {
-        display: flex;
-        justify-content: center; 
-        align-items: center;
- }`}</code>
+        <code>{`${item.code ? item.code : ""}`}</code>
         <BiCopy className="copy-icon" />
       </pre>
 
       <div className="discussion-answer-details">
         <div>
           <img src={utkarsh} alt="utkarsh" />
-          <p>Utkarsh Raj</p>
+          {/* <p>Utkarsh Raj</p> */}
+          <p>{item.sender ? item.sender.name : ""}</p>
         </div>
         <div className="discussion-answer-details-date">
           <p>posted on May 11, 2020 at 21:57</p>
