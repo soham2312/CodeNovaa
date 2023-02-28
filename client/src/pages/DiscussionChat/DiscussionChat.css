@@ -58,6 +58,11 @@
   cursor: pointer;
 }
 
+.discussion-chat-question-code code {
+  max-width: 560px;
+  overflow-x: scroll;
+}
+
 .discussion-chat-question-line {
   width: 560px;
   height: 0px;
