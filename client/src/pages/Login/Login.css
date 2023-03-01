@@ -1,44 +1,117 @@
+.login-username input:focus {
+  outline: none;
+  border: none;
+  border: 2px solid black;
+}
 .login {
   /* background-color: #121212; */
-  height: 90vh;
-}
-
-.login > div {
-  /* background-color: #242222; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  max-width: 350px;
+  padding: 15px;
+  gap: 28px;
   margin: 0 auto;
-  padding: 40px 20px;
-  gap: 50px;
+  margin-top: 10vh;
+  width: 450px;
+  background: #ffffff;
+  border: 2px solid #e6e6e6;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
 }
+.login-welcome {
+  width: 110px;
+  height: 22px;
 
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  /* display: flex; */
   align-items: center;
-  gap: 30px;
 }
-
-form > div {
+.login-username {
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 7px 10px 24px;
+  gap: 91px;
+  width: 300px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 50px;
+}
+.login-password {
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 7px 10px 24px;
+  gap: 91px;
+  width: 300px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 50px;
+}
+.login-input {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
   gap: 20px;
 }
-
-input {
-  padding: 13px 30px;
-  width: 300px;
-  height: 45px;
-  background: #1e1e1e;
-  border-radius: 50px;
-  color: white;
+.login-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* gap: 10px; */
+  width: 40%;
 }
+.login-google {
+  width: 30px;
+  height: 30px;
+}
+.login-github {
+  width: 30px;
+  height: 30px;
+}
+.login-linkedin {
+  width: 30px;
+  height: 30px;
+}
+.login-forgot {
+  font-family: "Nunito";
+  font-style: normal;
+  margin-top: 2vh;
+}
+.login-signup {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 4vh;
+  gap: 7px;
+}
+.login-signup-text {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
 
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+}
+.btn-cta-blue {
+  padding: 8px 10px;
+  background: #2f80ed;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s;
+}
 .msg {
   display: flex;
   flex-direction: row;
@@ -50,20 +123,4 @@ input {
 
 .msg-link:hover {
   text-decoration: underline;
-}
-
-.btn {
-  color: white;
-  padding: 8px 16px;
-  background: #ff4820;
-  font-size: 18px;
-  border-radius: 30px;
-  transition: all 0.3s;
-  width: 200px;
-  border: none;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background: #f22c00;
 }
