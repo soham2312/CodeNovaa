@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ReportCard from "../../components/ReportCard/ReportCard";
 
 const Reports = () => {
   const [reports, setReports] = useState([]);
@@ -18,7 +19,8 @@ const Reports = () => {
         config
       );
 
-      console.log(data);
+      //   console.log(data);
+      setReports(data.report);
     } catch (error) {
       console.error(error);
     }
@@ -27,7 +29,13 @@ const Reports = () => {
   useEffect(() => {
     pageLoad();
   }, []);
-  return <div>Reports</div>;
+  return (
+    <div>
+      {reports
+        ? reports.map((item) => <ReportCard key={item._id} item={item} />)
+        : "Loading.."}
+    </div>
+  );
 };
 
 export default Reports;

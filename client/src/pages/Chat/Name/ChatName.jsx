@@ -37,14 +37,14 @@ const ChatName = () => {
   return (
     <div>
       {/* {chats && chats.map((chat) => <div className="myChats">{chat.name}</div>)} */}
-      {chats ? (
+      {chats.length > 0 ? (
         chats.map((chat) => (
           <div
             className="myChats"
             key={chat._id}
             onClick={() => {
               setSelectedChat(chat);
-              console.log(chat._id);
+              // console.log(chat._id);
             }}
             style={{
               cursor: "pointer",
@@ -53,9 +53,11 @@ const ChatName = () => {
             }}
           >
             <p className="text">
-              {chat.users[0].name === user.data.user.name
-                ? chat.users[1].name
-                : chat.users[0].name}
+              {chat.users[0]
+                ? chat.users[0].name === user.data.user.name
+                  ? chat.users[1].name
+                  : chat.users[0].name
+                : ""}
             </p>
           </div>
         ))

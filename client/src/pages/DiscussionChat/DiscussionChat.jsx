@@ -114,7 +114,7 @@ const DiscussionChat = () => {
 
         config
       );
-      // console.log(message);
+      // console.log(message.data);
       setMessages(message.data);
       //   console.log(data[1].content);
       //   setLoading(false);
@@ -143,8 +143,9 @@ const DiscussionChat = () => {
           { content: answer, code: answercode, chatId: discussionData._id },
           config
         );
-        console.log(data);
-        setMessages([messages, ...data]);
+        // console.log(data);
+        setMessages([...messages, data]);
+        // console.log(messages);
         setAnswer("");
         setAnswercode("");
         // console.log(data.chat[0]);
