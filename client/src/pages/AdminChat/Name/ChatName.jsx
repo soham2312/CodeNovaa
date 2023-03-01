@@ -19,11 +19,11 @@ const ChatName = () => {
       };
 
       const { data } = await axios.get(
-        "http://localhost:5000/api/v1/chat",
+        "http://localhost:5000/api/v1/admin/all-chats",
         config
       );
-      // console.log(data);
-      setChats(data);
+      console.log(data);
+      setChats(data.chats);
     } catch (error) {
       console.log(error);
       alert(error);
@@ -37,7 +37,7 @@ const ChatName = () => {
   return (
     <div>
       {/* {chats && chats.map((chat) => <div className="myChats">{chat.name}</div>)} */}
-      {chats ? (
+      {chats.length > 0 ? (
         chats.map((chat) => (
           <div
             className="myChats"
@@ -52,11 +52,8 @@ const ChatName = () => {
               color: `${selectedChat === chat ? "black" : "black"}`,
             }}
           >
-            <p className="text">
-              {chat.users[0].name === user.data.user.name
-                ? chat.users[1].name
-                : chat.users[0].name}
-            </p>
+            <p className="text">{chat.users[1].name}</p>
+            <p className="text">{chat.users[0].name}</p>
           </div>
         ))
       ) : (

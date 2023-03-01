@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import user from "../../assets/default.jpg";
+import { NavLink, Outlet, Link } from "react-router-dom";
+import userpic from "../../assets/default.jpg";
+import { ChatState } from "../../context/ChatProvider";
 import "./Me.css";
 
 const Platform = () => (
@@ -24,12 +25,21 @@ const Platform = () => (
 );
 
 const Me = () => {
+  const { user } = ChatState();
+
   return (
     <div className="profile">
       <div className="profile-center">
         <div className="photo">
-          <img src={user} alt="user" />
+          <img src={userpic} alt="user" />
         </div>
+        {JSON.parse(localStorage.getItem("userInfo")).data.user.role ===
+        "admin" ? (
+          // <button className="btn">View Chats</button>
+          <Link to="/admin-chats">View Chats</Link>
+        ) : (
+          <p></p>
+        )}
         <div className="profile-platform">
           <Platform />
         </div>

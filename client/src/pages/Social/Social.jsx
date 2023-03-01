@@ -10,7 +10,7 @@ const Social = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user, chats, setChats, setSelectedChat } = ChatState();
+  const { user } = ChatState();
 
   const handleSearch = async () => {
     try {
@@ -26,10 +26,10 @@ const Social = () => {
         config
       );
       setSearchResult(data.users);
-      console.log(data.users);
+      // console.log(data.users);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   useEffect(() => {
@@ -54,7 +54,9 @@ const Social = () => {
         />
         <div className="user-card">
           {searchResult.length !== 0 ? (
-            searchResult.map((user) => <SocialCard user={user} />)
+            searchResult.map((user) => (
+              <SocialCard user={user} key={user._id} />
+            ))
           ) : (
             <p>user not found</p>
           )}

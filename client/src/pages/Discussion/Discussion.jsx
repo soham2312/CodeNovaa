@@ -4,45 +4,18 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import "./Discussion.css";
 import { Link } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+
 import DiscussionCard from "../../components/DiscussionCard/DiscussionCard";
 
-const data = [
-  {
-    id: 1,
-    title: "Microsoft Online Assessment Questions",
-  },
-  {
-    id: 2,
-    title: "Google Online Assessment Questions",
-  },
-  {
-    id: 3,
-    title: "Amazon Online Assessment Questions",
-  },
-  {
-    id: 4,
-    title: "Facebook Online Assessment Questions",
-  },
-  {
-    id: 5,
-    title: "Striver Dsa Sheet",
-  },
-  {
-    id: 6,
-    title: "Babbar Dsa Sheet",
-  },
-  {
-    id: 7,
-    title: "Placement Questions",
-  },
-];
-
 const Discussion = () => {
-  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const { user, setUser } = ChatState();
 
   const [newDiscussion, setNewDiscussion] = useState("");
   const [discussion, setDiscussion] = useState([]);
   const [discussionName, setDiscussionName] = useState("");
+  const [discription, setDiscription] = useState("");
+  const [code, setCode] = useState("");
   const handleClick = async () => {
     if (!discussionName) {
       alert("Enter discussion Name");
@@ -58,24 +31,32 @@ const Discussion = () => {
           `http://localhost:5000/api/v1/chat/create-discussion`,
           {
             chatName: discussionName,
+            discription: discription,
+            code: code,
           },
           config
         );
         setNewDiscussion(data);
 
-        console.log(data);
+        // console.log(data);
+        setCode("");
+        setDiscription("");
+        setDiscussionName("");
       } catch (error) {
         console.log(error);
       }
     }
   };
   const pageLoad = async () => {
+    // console.log("inside page load");
     // console.log(user);
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
         },
       };
       const { data } = await axios.get(
@@ -89,8 +70,14 @@ const Discussion = () => {
     }
   };
 
+  // window.addEventListener("beforeunload", pageLoad);
+
   useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    setUser(userInfo);
+
     pageLoad();
+    // console.log("working");
   }, []);
 
   useEffect(() => {
@@ -98,27 +85,51 @@ const Discussion = () => {
   }, [newDiscussion]);
 
   return (
-    <div>
+    <div className="discussion-page">
       <div className="discussion-Ask">
-        <h4>Home</h4>
         <div className="discussion-question">
-          <input
-            type="text"
+          <TextField
+            id="filled-basic"
+            label="Create New Discussion / Ask new question"
+            variant="outlined"
             className="discussion-question-input"
-            placeholder="Create New discussion"
             value={discussionName}
             onChange={(e) => {
               setDiscussionName(e.target.value);
             }}
           />
+          <TextField
+            id="filled-basic"
+            label="Add description of question"
+            variant="outlined"
+            multiline
+            value={discription}
+            className="discussion-question-input"
+            onChange={(e) => {
+              setDiscription(e.target.value);
+            }}
+          />
+          <TextField
+            id="filled-multiline-static"
+            label="Code"
+            multiline
+            variant="filled"
+            value={code}
+            className="discussion-question-input"
+            onChange={(e) => {
+              setCode(e.target.value);
+            }}
+          />
+          <a className="btn-cta-orange" onClick={handleClick}>
+            Create Discussion
+          </a>
         </div>
-        <button className="btn" onClick={handleClick}>
-          Create
-        </button>
       </div>
       <div className="discussion">
         {discussion ? (
-          discussion.map((item) => <DiscussionCard item={item} />)
+          discussion.map((item) => (
+            <DiscussionCard item={item} key={item._id ? item._id : ""} />
+          ))
         ) : (
           <p>Loading...</p>
         )}
