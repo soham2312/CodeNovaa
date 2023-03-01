@@ -36,10 +36,19 @@ const Me = () => {
         {JSON.parse(localStorage.getItem("userInfo")).data.user.role ===
         "admin" ? (
           // <button className="btn">View Chats</button>
+
           <Link to="/admin-chats">View Chats</Link>
         ) : (
-          <p></p>
+          // <Link to="/view-reports">View Reports</Link>
+          ""
         )}
+        {JSON.parse(localStorage.getItem("userInfo")).data.user.role ===
+        "admin" ? (
+          <Link to="/view-reports">View Reports</Link>
+        ) : (
+          ""
+        )}
+
         <div className="profile-platform">
           <Platform />
         </div>

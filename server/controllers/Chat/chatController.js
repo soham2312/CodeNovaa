@@ -100,7 +100,8 @@ exports.getAllDiscussion = catchAsync(async (req, res, next) => {
 
     res.json(message);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+
     // res.status(400);
     // throw new Error(err.message);
     return next(new AppError(error.message, 400));
@@ -260,7 +261,7 @@ exports.findBySlug = catchAsync(async (req, res, next) => {
   const chats = await Chat.find({ slug: slug }).populate("users", "-password");
   // .populate("latestMessage");
 
-  console.log(chats);
+  // console.log(chats);
   res.status(200).json({
     status: "success",
     chat: chats,

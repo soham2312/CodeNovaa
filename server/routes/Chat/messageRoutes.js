@@ -10,4 +10,8 @@ router
   .route("/:chatId")
   .get(authController.protect, messageController.getAllMessage);
 
+router
+  .route("/vote/:id")
+  .post(authController.protect, messageController.doVotes);
+
 module.exports = router;
