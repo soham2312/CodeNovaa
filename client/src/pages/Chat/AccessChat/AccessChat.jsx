@@ -28,7 +28,7 @@ const AccessChat = ({ messages, setMessages }) => {
         config
       );
       setMessages(data);
-      console.log(user);
+      // console.log(user);
       //   console.log(data[0].content);
       //   console.log(data[1].content);
       //   setLoading(false);
