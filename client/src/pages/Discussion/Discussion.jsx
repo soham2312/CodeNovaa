@@ -128,7 +128,7 @@ const Discussion = () => {
       <div className="discussion">
         {discussion ? (
           discussion.map((item) => (
-            <DiscussionCard item={item} key={item._id} />
+            <DiscussionCard item={item} key={item._id ? item._id : ""} />
           ))
         ) : (
           <p>Loading...</p>

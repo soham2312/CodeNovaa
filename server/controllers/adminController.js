@@ -27,6 +27,17 @@ exports.deleteDiscussion = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.deleteMessage = catchAsync(async (req, res, next) => {
+  const messageId = req.body.messageId;
+  // await Chat.findByIdAndDelete(chatId);
+
+  const chatMessage = await Message.findByIdAndDelete(messageId);
+  console.log(chatMessage);
+  res.status(201).json({
+    status: "success",
+  });
+});
+
 // exports.getAllMessage = catchAsync(async (req, res, next) => {
 //   try {
 //     const message = await Message.find({ chat: req.params.chatId })

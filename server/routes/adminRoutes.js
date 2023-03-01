@@ -14,6 +14,14 @@ router
   );
 
 router
+  .route("/delete-message")
+  .post(
+    authController.protect,
+    authController.restrictTo("admin"),
+    adminController.deleteMessage
+  );
+
+router
   .route("/all-chats")
   .get(
     authController.protect,
