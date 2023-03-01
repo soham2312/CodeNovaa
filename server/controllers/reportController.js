@@ -19,3 +19,11 @@ exports.reportDiscussion = catchAsync(async (req, res, next) => {
     report: newReport,
   });
 });
+
+exports.allReports = catchAsync(async (req, res, next) => {
+  const newReport = await Report.find();
+  res.status(201).json({
+    status: "success",
+    report: newReport,
+  });
+});
