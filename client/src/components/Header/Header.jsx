@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import user from "../../assets/default.jpg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, redirect } from "react-router-dom";
 import userpic from "../../assets/default.jpg";
 import { ChatState } from "../../context/ChatProvider";
 
@@ -30,6 +30,11 @@ const Menu = () => {
 const Header = () => {
   const { user } = ChatState();
 
+  const handleLogout = () => {
+    localStorage.clear();
+    redirect("/login");
+  };
+
   return (
     <div className="header">
       <Link to="/" className="logo">
@@ -40,6 +45,9 @@ const Header = () => {
         <p>{user ? user.data.user.name : <Link to="/login">login</Link>}</p>
         <img src={userpic} alt="user" className="user-img" />
       </Link>
+      <div onClick={handleLogout} style={{ cursor: "pointer" }}>
+        Logout
+      </div>
     </div>
   );
 };
