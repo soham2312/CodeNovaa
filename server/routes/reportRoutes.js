@@ -10,4 +10,10 @@ router.post(
   reportController.reportDiscussion
 );
 
+router.post(
+  "/resolve-discussion",
+  authController.protect,
+  reportController.resolveReport
+);
+
 module.exports = router;

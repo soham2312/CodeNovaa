@@ -28,9 +28,24 @@ Link {
   cursor: pointer;
 }
 
+.btn-cta-green {
+  padding: 8px 10px;
+  background: #36fa57;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
 .btn-cta-orange:hover,
 .active:hover {
   background-color: #dc7418;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cta-green:hover {
+  background-color: #18dc2f;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
 }
 
