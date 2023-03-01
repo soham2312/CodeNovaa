@@ -109,3 +109,127 @@ exports.getAllMessage = catchAsync(async (req, res, next) => {
     return next(new AppError(error.message, 400));
   }
 });
+
+exports.doVotes = catchAsync(async (req, res, next) => {
+  const messageId = req.params.id;
+  const userId = req.user._id;
+  const vote = req.body.vote;
+  if (vote === "up") {
+    // console.log(messageId, userId, vote);
+    const isPresent = await Message.find({
+      _id: messageId,
+
+      $and: [{ upvotes: { $elemMatch: { $eq: req.user._id } } }],
+    });
+    // console.log(isPresent);
+
+    await Message.findByIdAndUpdate(
+      messageId,
+      {
+        $pull: { downvotes: userId },
+      },
+      {
+        new: true,
+      }
+    );
+    // }
+
+    if (isPresent.length > 0) {
+      try {
+        // console.log("Nooooooooooooooo");
+        await Message.findByIdAndUpdate(
+          messageId,
+          {
+            $pull: { upvotes: userId },
+          },
+          {
+            new: true,
+          }
+        );
+      } catch (err) {
+        res.status(401).json({ error: err });
+      }
+    } else {
+      try {
+        // console.log("I am here");
+        await Message.findByIdAndUpdate(
+          messageId,
+          {
+            $push: { upvotes: userId },
+          },
+          {
+            new: true,
+          }
+        );
+      } catch (err) {
+        console.log(err);
+        res.status(401).json({ error: err });
+      }
+    }
+    const votes = await Message.findById(messageId).populate(
+      "downvotes upvotes",
+      "name photo"
+    );
+    // console.log(votes);
+    res.status(201).json({
+      status: "success",
+      downvotes: votes.downvotes.length,
+      usersdown: votes.downvotes,
+      upvotes: votes.upvotes.length,
+      usersup: votes.upvotes,
+    });
+  } else {
+    const isPresent = await Message.find({
+      _id: messageId,
+      // isGroupChat: true,
+      $and: [{ downvotes: { $elemMatch: { $eq: req.user._id } } }],
+    });
+
+    await Message.findByIdAndUpdate(
+      messageId,
+      {
+        $pull: { upvotes: userId },
+      },
+      {
+        new: true,
+      }
+    );
+    if (isPresent.length > 0) {
+      try {
+        await Message.findByIdAndUpdate(
+          messageId,
+          {
+            $pull: { downvotes: userId },
+          },
+          {
+            new: true,
+          }
+        );
+      } catch (err) {
+        res.status(401).json({ error: err });
+      }
+    } else {
+      await Message.findByIdAndUpdate(
+        messageId,
+        {
+          $push: { downvotes: userId },
+        },
+        {
+          new: true,
+        }
+      );
+    }
+
+    const votes = await Message.findById(messageId).populate(
+      "downvotes upvotes",
+      "name photo"
+    );
+    res.status(201).json({
+      status: "success",
+      downvotes: votes.downvotes.length,
+      usersdown: votes.downvotes,
+      upvotes: votes.upvotes.length,
+      usersup: votes.upvotes,
+    });
+  }
+});

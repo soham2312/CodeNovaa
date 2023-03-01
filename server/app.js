@@ -6,6 +6,7 @@ const cors = require("cors");
 const AppError = require("./utils/appError");
 const globalErrorController = require("./controllers/errorController");
 const userRouter = require("./routes/userRoutes");
+const reportRoutes = require("./routes/reportRoutes");
 const chatRoutes = require("./routes/Chat/chatRoutes");
 const messageRoutes = require("./routes/Chat/messageRoutes");
 const adminRoutes = require("./routes/adminRoutes");
@@ -28,6 +29,7 @@ app.use("/api/v1/users", userRouter);
 // app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/chat", chatRoutes);
 app.use("/api/v1/message", messageRoutes);
+app.use("/api/v1/report", reportRoutes);
 app.use("/api/v1/admin", adminRoutes);
 
 //Route of global error handler

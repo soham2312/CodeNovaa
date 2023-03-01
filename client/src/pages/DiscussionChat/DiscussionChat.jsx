@@ -40,6 +40,52 @@ const DiscussionChat = () => {
     console.log("");
   };
 
+  const handleUpVote = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `http://localhost:5000/api/v1/chat/vote/${discussionData._id}`,
+        { vote: "up" },
+        config
+      );
+      setUp(data.upvotes);
+      setDown(data.downvotes);
+      // console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDownVote = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `http://localhost:5000/api/v1/chat/vote/${discussionData._id}`,
+        { vote: "down" },
+        config
+      );
+      setDown(data.downvotes);
+      setUp(data.upvotes);
+      // console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // console.log(slug);
 
   const pageLoad = async () => {
@@ -60,6 +106,8 @@ const DiscussionChat = () => {
 
       // console.log(data.chat[0]);
       setDiscussionData(data.chat[0]);
+      setUp(data.chat[0].upvotes.length);
+      setDown(data.chat[0].downvotes.length);
 
       const message = await axios.get(
         `http://localhost:5000/api/v1/message/${data.chat[0]._id}`,
@@ -128,10 +176,10 @@ const DiscussionChat = () => {
 
         <div className="discussion-card-datas">
           <div className="discussion-card-data">
-            <div className="discussion-card-upvote" onClick={faltu}>
+            <div className="discussion-card-upvote" onClick={handleUpVote}>
               <BiUpvote className="discussion-icon" /> <p>{up}</p>
             </div>
-            <div className="discussion-card-downvote" onClick={faltu}>
+            <div className="discussion-card-downvote" onClick={handleDownVote}>
               <BiDownvote className="discussion-icon" /> <p>{down}</p>
             </div>
             <div className="discussion-card-comment">

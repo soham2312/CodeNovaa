@@ -8,8 +8,10 @@ import { AiTwotoneDelete } from "react-icons/ai";
 import axios from "axios";
 
 const DiscussionAnswer = ({ item }) => {
-  const [up, setUp] = useState(0);
-  const [down, setDown] = useState(0);
+  const [up, setUp] = useState(item.upvotes.length ? item.upvotes.length : 0);
+  const [down, setDown] = useState(
+    item.downvotes.length ? item.downvotes.length : 0
+  );
 
   const handleClick = async () => {
     try {
@@ -28,6 +30,51 @@ const DiscussionAnswer = ({ item }) => {
       );
       console.log(data);
 
+      // console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const handleUpVote = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `http://localhost:5000/api/v1/message/vote/${item._id}`,
+        { vote: "up" },
+        config
+      );
+      setUp(data.upvotes);
+      setDown(data.downvotes);
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDownVote = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `http://localhost:5000/api/v1/message/vote/${item._id}`,
+        { vote: "down" },
+        config
+      );
+      setDown(data.downvotes);
+      setUp(data.upvotes);
       // console.log(data);
     } catch (err) {
       console.error(err);
@@ -76,10 +123,10 @@ const DiscussionAnswer = ({ item }) => {
       </div>
       <div className="discussion-answer-line"></div>
       <div className="discussion-answer-data">
-        <div className="discussion-card-upvote">
+        <div className="discussion-card-upvote" onClick={handleUpVote}>
           <BiUpvote className="discussion-icon" /> <p>{up}</p>
         </div>
-        <div className="discussion-card-downvote">
+        <div className="discussion-card-downvote" onClick={handleDownVote}>
           <BiDownvote className="discussion-icon" /> <p>{down}</p>
         </div>
       </div>
