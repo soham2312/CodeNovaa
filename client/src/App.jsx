@@ -10,7 +10,7 @@ import Codechef from "./components/platform/Codechef";
 
 import Chat from "./pages/Chat/Chat";
 import Login from "./pages/Login/Login";
-
+import SignUp from "./pages/SignUp/SignUp";
 import Geeksforgeeks from "./components/platform/Geeksforgeeks";
 import Social from "./pages/Social/Social";
 import Discussion from "./pages/Discussion/Discussion";
@@ -33,6 +33,7 @@ function App() {
           <Route path="chat" element={<Chat />} />
           <Route path="login" element={<Login />} />
           <Route path="social" element={<Social />} />
+          <Route path="signup" element={<SignUp/>} />
           <Route path="me" element={<Me />}>
             <Route path="codeforces" element={<Codeforces />} />
             <Route path="codechef" element={<Codechef />} />

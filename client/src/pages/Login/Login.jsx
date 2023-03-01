@@ -62,12 +62,12 @@ const Login = () => {
               setUsername(e.target.value);
             }}
           />
-          {/* </div> */}
-          {/* <div className="login-password"> */}
+          {/* </div>
+          <div className="login-password"> */}
           <input
             type="password"
             placeholder="Password"
-            className="login-password"
+            className="login-username"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
