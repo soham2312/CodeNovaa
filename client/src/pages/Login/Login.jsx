@@ -51,29 +51,29 @@ const Login = () => {
         <img src={logo} />
         <h3 className="login-welcome">Welcome Back</h3>
         <div className="login-input">
-          <div className="login-username">
-            <input
-              type="text"
-              placeholder="username"
-              name="username"
-              className="login-input-box"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-          </div>
-          <div className="login-password">
-            <input
-              type="password"
-              placeholder="Password"
-              className="login-input-box"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-          </div>
+          {/* <div className="login-username"> */}
+          <input
+            type="text"
+            placeholder="username"
+            name="username"
+            className="login-username"
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
+          {/* </div>
+          <div className="login-password"> */}
+          <input
+            type="password"
+            placeholder="Password"
+            className="login-username"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          {/* </div> */}
         </div>
         <a type="submit" className="btn-cta-orange" onClick={login}>
           Login
