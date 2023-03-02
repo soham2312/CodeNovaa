@@ -16,9 +16,11 @@ import axios from "axios";
 import { ChatState } from "../../context/ChatProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReportPopup from "../ReportPopup/ReportPopup";
 
 const DiscussionCard = ({ item }) => {
   const { user, setUser } = ChatState();
+  const [report, setReport] = useState(false);
   // console.log(item.slug);
   const [open, setOpen] = useState(false);
   const [book, setBook] = useState(false);
@@ -154,6 +156,7 @@ const DiscussionCard = ({ item }) => {
   // });
   return (
     <div className="discussion-card">
+      {report ? <ReportPopup item={item._id ? item._id : ""} /> : ""}
       <div className="discussion-card-content">
         <div className="discussion-card-ques">
           <p>{item.name}</p>
@@ -209,7 +212,11 @@ const DiscussionCard = ({ item }) => {
                 {book ? <BsFillBookmarkCheckFill /> : <BsBookmark />}
                 Bookmark
               </div>
-              <div>
+              <div
+                onClick={() => {
+                  setReport(!report);
+                }}
+              >
                 <GoReport /> Report
               </div>
             </div>
