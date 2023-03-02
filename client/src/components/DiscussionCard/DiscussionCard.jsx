@@ -142,7 +142,6 @@ const DiscussionCard = ({ item }) => {
       toast.success("Question Bookmarked!", {
         autoClose: 1000,
       });
-      // console.log(data);
 
       // console.log(data);
     } catch (err) {
