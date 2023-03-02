@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DiscussionCard.css";
 import utkarsh from "../../assets/utkarsh.jpg";
 import { Link } from "react-router-dom";
 import { BiUpvote, BiDownvote, BiComment } from "react-icons/bi";
-import { BsThreeDotsVertical, BsShare, BsBookmark } from "react-icons/bs";
+import {
+  BsThreeDotsVertical,
+  BsShare,
+  BsBookmark,
+  BsFillBookmarkCheckFill,
+} from "react-icons/bs";
 import { GoReport } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
 import { AiTwotoneDelete } from "react-icons/ai";
@@ -14,6 +19,7 @@ const DiscussionCard = ({ item }) => {
   const { user, setUser } = ChatState();
   // console.log(item.slug);
   const [open, setOpen] = useState(false);
+  const [book, setBook] = useState(false);
   const [up, setUp] = useState(item.upvotes ? item.upvotes.length : 0);
   const [down, setDown] = useState(item.downvotes ? item.downvotes.length : 0);
 
@@ -89,6 +95,57 @@ const DiscussionCard = ({ item }) => {
       console.error(err);
     }
   };
+  const isBookmark = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+      const { data } = await axios.get(
+        `http://localhost:5000/api/v1/users/${user.data.user.name}`,
+
+        config
+      );
+      console.log("LLLlllllllllllllllll");
+      // console.log(data.user);
+      const isbookmarked = await data.user[0].bookmarkChats.includes(item._id);
+
+      setBook(isbookmarked);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const doBookmark = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://localhost:5000/api/v1/users/add-bookmark",
+        { chatId: item._id },
+        config
+      );
+      // console.log(data);
+
+      // console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // useEffect(() => {
+  //   isBookmark();
+  // });
   return (
     <div className="discussion-card">
       <div className="discussion-card-content">
@@ -136,14 +193,15 @@ const DiscussionCard = ({ item }) => {
           ""
         )}
         <div className="discussion-card-dropdown" onClick={openPopup}>
-          {open ? <RxCross1 /> : <BsThreeDotsVertical />}
+          {open ? <RxCross1 /> : <BsThreeDotsVertical onClick={isBookmark} />}
           {open && (
             <div className="discussion-dropdown">
               <div>
                 <BsShare /> Share
               </div>
-              <div>
-                <BsBookmark /> Bookmark
+              <div onClick={doBookmark}>
+                {book ? <BsFillBookmarkCheckFill /> : <BsBookmark />}
+                Bookmark
               </div>
               <div>
                 <GoReport /> Report
