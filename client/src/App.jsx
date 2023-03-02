@@ -33,8 +33,8 @@ function App() {
           <Route path="chat" element={<Chat />} />
           <Route path="login" element={<Login />} />
           <Route path="social" element={<Social />} />
-          <Route path="signup" element={<SignUp/>} />
-          <Route path="me" element={<Me />}>
+          <Route path="signup" element={<SignUp />} />
+          <Route path="profile/:slug" element={<Me />}>
             <Route path="codeforces" element={<Codeforces />} />
             <Route path="codechef" element={<Codechef />} />
             <Route path="leetcode" element={<Leetcode />} />

@@ -15,3 +15,8 @@ exports.allUsers = catchAsync(async (req, res, next) => {
   const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
   res.status(201).json({ users });
 });
+
+exports.getUser = catchAsync(async (req, res, next) => {
+  const user = await User.find({ name: req.params.name });
+  res.status(203).json({ user });
+});
