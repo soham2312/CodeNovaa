@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const ChatContext = createContext();
+// const navigate = useNavigate();
 
 const ChatProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -10,10 +11,14 @@ const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    console.log(userInfo);
     setUser(userInfo);
     if (!userInfo) {
+      // alert("n");
+      console.log("you are not logged in");
       // navigate("/login");
-      alert("n");
+    } else {
+      console.log("you are logged in");
     }
   }, []);
 

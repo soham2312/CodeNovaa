@@ -14,6 +14,8 @@ import { RxCross1 } from "react-icons/rx";
 import { AiTwotoneDelete } from "react-icons/ai";
 import axios from "axios";
 import { ChatState } from "../../context/ChatProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DiscussionCard = ({ item }) => {
   const { user, setUser } = ChatState();
@@ -135,6 +137,11 @@ const DiscussionCard = ({ item }) => {
         { chatId: item._id },
         config
       );
+
+      // include removed bookmarked popup
+      toast.success("Question Bookmarked!", {
+        autoClose: 1000,
+      });
       // console.log(data);
 
       // console.log(data);
@@ -210,6 +217,18 @@ const DiscussionCard = ({ item }) => {
           )}
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
