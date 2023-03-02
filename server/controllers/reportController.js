@@ -21,7 +21,9 @@ exports.reportDiscussion = catchAsync(async (req, res, next) => {
 });
 
 exports.allReports = catchAsync(async (req, res, next) => {
-  const newReport = await Report.find();
+  const newReport = await Report.find()
+    .populate("chatId", "chatName discription")
+    .populate("sender", "name photo");
   res.status(201).json({
     status: "success",
     report: newReport,

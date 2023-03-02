@@ -106,7 +106,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //Grant access to the user
-  // console.log(freshUser);
+  console.log(freshUser);
   req.user = freshUser;
 
   next();
