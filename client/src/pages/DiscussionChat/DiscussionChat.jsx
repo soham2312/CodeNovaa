@@ -8,6 +8,7 @@ import { GoReport } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
 import "./DiscussionChat.css";
 import DiscussionAnswer from "../../components/DiscussionAnswer/DiscussionAnswer";
+import ReportPopup from "../../components/ReportPopup/ReportPopup";
 import TextField from "@mui/material/TextField";
 import utkarsh from "../../assets/utkarsh.jpg";
 import { ToastContainer, toast } from "react-toastify";
@@ -25,9 +26,15 @@ const DiscussionChat = () => {
   // update this
   const [up, setUp] = useState(0);
   const [down, setDown] = useState(0);
-  //
+  // reportpopup
+  const [report, setReport] = useState(false);
+
   const openPopup = () => {
     setOpen(!open);
+  };
+
+  const reportPopup = () => {
+    setReport(!report);
   };
 
   const navigate = useNavigate();
@@ -165,6 +172,9 @@ const DiscussionChat = () => {
       <div className="back-button" onClick={back}>
         <MdArrowBackIos />
       </div>
+
+      {report && <ReportPopup />}
+
       <div className="discussion-chat-question">
         <div className="discussion-chat-question-content">
           <h2>{discussionData.chatName ? discussionData.chatName : ""}</h2>
@@ -213,7 +223,7 @@ const DiscussionChat = () => {
                 <div>
                   <BsBookmark /> Bookmark
                 </div>
-                <div>
+                <div onClick={reportPopup}>
                   <GoReport /> Report
                 </div>
               </div>

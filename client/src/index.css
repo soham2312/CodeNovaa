@@ -19,18 +19,11 @@ Link {
 
 .btn-cta-orange,
 .active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 8px 10px;
   background: #fa9236;
-  border-radius: 5px;
-  color: #fff;
-  font-weight: 500;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
-.btn-cta-green {
-  padding: 8px 10px;
-  background: #36fa57;
   border-radius: 5px;
   color: #fff;
   font-weight: 500;
@@ -44,9 +37,42 @@ Link {
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
 }
 
+.btn-cta-green {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 10px;
+  background: #36fa57;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
 .btn-cta-green:hover {
   background-color: #18dc2f;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cta-light {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 10px;
+  background: #fff;
+  border: 1.5px solid #dc7418;
+  border-radius: 5px;
+  color: #dc7418;
+  font-weight: 600;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.btn-cta-light:hover {
+  background-color: #dc7418;
+  color: #fff;
+  border: 1.5px solid #fff;
 }
 
 .btn-round {
