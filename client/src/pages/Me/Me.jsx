@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { NavLink, Outlet, Link } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet, Link, useParams } from "react-router-dom";
 import userpic from "../../assets/default.jpg";
 import { ChatState } from "../../context/ChatProvider";
 import "./Me.css";
@@ -25,8 +26,36 @@ const Platform = () => (
 );
 
 const Me = () => {
+  const { slug } = useParams();
   const { user } = ChatState();
+  const [viewUser, setViewUser] = useState(null);
+  console.log(slug);
 
+  const pageLoad = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+      const { data } = await axios.get(
+        `http://localhost:5000/api/v1/users/${slug}`,
+
+        config
+      );
+
+      console.log(data.user);
+      setViewUser(data.user[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    pageLoad();
+  }, []);
   return (
     <div className="profile">
       <div className="profile-center">
@@ -54,6 +83,7 @@ const Me = () => {
         </div>
         <Outlet />
       </div>
+      <h1>{viewUser ? viewUser.name : ""}</h1>
     </div>
   );
 };

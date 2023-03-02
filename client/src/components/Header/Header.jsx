@@ -41,7 +41,7 @@ const Header = () => {
         {"<Code Smashers />"}
       </Link>
       <Menu />
-      <Link to="/me" className="user">
+      <Link to={`profile/${user ? user.data.user.name : ""}`} className="user">
         <p>{user ? user.data.user.name : <Link to="/login">login</Link>}</p>
         <img src={userpic} alt="user" className="user-img" />
       </Link>
