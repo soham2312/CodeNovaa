@@ -33,10 +33,6 @@ const DiscussionChat = () => {
     setOpen(!open);
   };
 
-  const reportPopup = () => {
-    setReport(!report);
-  };
-
   const navigate = useNavigate();
 
   const back = () => {
@@ -173,7 +169,7 @@ const DiscussionChat = () => {
         <MdArrowBackIos />
       </div>
 
-      {report && <ReportPopup />}
+      {report ? <ReportPopup item={discussionData} /> : ""}
 
       <div className="discussion-chat-question">
         <div className="discussion-chat-question-content">
@@ -223,7 +219,12 @@ const DiscussionChat = () => {
                 <div>
                   <BsBookmark /> Bookmark
                 </div>
-                <div onClick={reportPopup}>
+                <div
+                  onClick={() => {
+                    // console.log("clicked");
+                    setReport(!report);
+                  }}
+                >
                   <GoReport /> Report
                 </div>
               </div>

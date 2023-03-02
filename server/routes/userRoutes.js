@@ -5,7 +5,7 @@ const authController = require("./../controllers/authController");
 const router = express.Router();
 
 router.route("/:name").get(userController.getUser);
-router.route("/").get(userController.allUsers);
+router.route("/").get(authController.protect, userController.allUsers);
 router
   .route("/add-bookmark")
   .post(authController.protect, userController.addBookmark);
