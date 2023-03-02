@@ -25,6 +25,7 @@ const createSendToken = (user, statusCode, res) => {
   res.cookie("jwt", token, cookieOptions);
 
   // Remove password from output
+  // console.log(user);
   user.password = undefined;
 
   res.status(statusCode).json({
@@ -106,7 +107,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //Grant access to the user
-  console.log(freshUser);
+  // console.log(freshUser);
   req.user = freshUser;
 
   next();

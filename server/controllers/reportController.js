@@ -29,3 +29,13 @@ exports.allReports = catchAsync(async (req, res, next) => {
     report: newReport,
   });
 });
+
+exports.resolveReport = catchAsync(async (req, res, next) => {
+  const { reportId } = req.body;
+  await Report.findByIdAndUpdate(reportId, {
+    isResolved: true,
+  });
+  res.status(203).json({
+    status: "success",
+  });
+});

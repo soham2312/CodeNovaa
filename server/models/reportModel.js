@@ -5,6 +5,10 @@ const reportSchema = new mongoose.Schema({
   content: { type: String, trim: true },
   chatId: { type: mongoose.Schema.Types.ObjectId, ref: "Chat" },
   messageId: { type: mongoose.Schema.Types.ObjectId, ref: "Message" },
+  isResolved: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Report = mongoose.model("Report", reportSchema);

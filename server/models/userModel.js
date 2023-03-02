@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema({
       message: "Password and Confirm Password are not same",
     },
   },
+  bookmarkChats: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }],
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
