@@ -9,7 +9,7 @@ exports.acessChat = catchAsync(async (req, res) => {
   const { userId } = req.body;
   // console.log(userId);
   if (!userId) {
-    console.log("UserId param not sent with request");
+    // console.log("UserId param not sent with request");
     return res.sendStatus(400);
   }
   var isChat = await Chat.find({
@@ -58,7 +58,7 @@ exports.fetchChats = async (req, res) => {
     }).populate("users", "-password");
     res.send(chat);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(401).json({
       status: "fail",
       error,
@@ -84,7 +84,7 @@ exports.createGroupChat = catchAsync(async (req, res) => {
     // .populate("groupCreater");
     res.status(200).json(fullGroupChat);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(401).json({
       status: "fail",
       error,
@@ -166,7 +166,8 @@ exports.doVotes = catchAsync(async (req, res, next) => {
           }
         );
       } catch (err) {
-        console.log(err);
+        // console.log(err);
+        res.status(400).json({ status: "fail" });
       }
     }
     const votes = await Chat.findById(chatId).populate(
