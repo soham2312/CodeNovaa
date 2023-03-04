@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ChatName from "./Name/ChatName";
 import { ChatState } from "../../context/ChatProvider";
 // import { ChatState } from "../../context/ChatProvider";
@@ -6,12 +6,31 @@ import "./Chat.css";
 import AccessChat from "./AccessChat/AccessChat";
 import MessageBox from "./MessageBox/MessageBox";
 import axios from "axios";
+import io from "socket.io-client";
+
+const ENDPOINT = "http://localhost:5000";
+var socket, selectedChatCompare;
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [socketConnected, setSocketConnected] = useState(false);
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    console.log(socket);
+    console.log(JSON.parse(localStorage.getItem("userInfo")).data.user);
+    socket.emit(
+      "setup",
+      JSON.parse(localStorage.getItem("userInfo")).data.user
+    );
+    socket.on("connected", () => setSocketConnected(true));
+    // socket.on("typing", () => setIsTyping(true));
+    // socket.on("stop typing", () => setIsTyping(false));
+  }, []);
+
   const handleclick = async () => {
-    console.log(selectedChat);
+    // console.log(selectedChat);
 
     try {
       if (newMessage) {
@@ -30,14 +49,29 @@ const Chat = () => {
           },
           config
         );
-        console.log(data);
-
+        // console.log(data);
+        socket.emit("new message", data);
         setMessages([...messages, data]);
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    socket.on("message recieved", (newMessageReceived) => {
+      // console.log("oooooooooooooooooooooooooooooooooooooooooooooooo");
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageReceived.chat._id
+      ) {
+        //notification
+      } else {
+        // console.log(newMessageReceived);
+        setMessages([...messages, newMessageReceived]);
+      }
+    });
+  });
   return (
     <div className="chat-box">
       <div className="chatName">
@@ -45,7 +79,12 @@ const Chat = () => {
       </div>
       <div className="chats">
         <div className="showChat">
-          <AccessChat messages={messages} setMessages={setMessages} />
+          <AccessChat
+            messages={messages}
+            setMessages={setMessages}
+            socket={socket}
+            selectedChatCompare={selectedChatCompare}
+          />
         </div>
         <input
           className="messageBox"
