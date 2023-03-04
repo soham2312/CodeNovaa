@@ -13,15 +13,12 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const handleClick = () => setshow(!show);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword || !password || !name) {
-      toast({
-        title: "Passwords do not match!",
-        status: "warning",
-        duration: 1000,
-        isClosable: true,
-        position: "bottom-right",
+      toast.error("Passwords do not match!", {
+        autoClose: 1000,
       });
       return;
     } else {
@@ -44,20 +41,12 @@ const SignUp = () => {
         console.log(data);
         const fdata = await data.token;
         if (res.status === 422 || !fdata) {
-          toast({
-            title: "Invalid Credentials!",
-            status: "warning",
-            duration: 1000,
-            isClosable: true,
-            position: "bottom-right",
+          toast.error("invalid credentials", {
+            autoClose: 1000,
           });
         } else {
-          toast({
-            title: "Account Created Successfully!",
-            status: "success",
-            duration: 1000,
-            isClosable: true,
-            position: "bottom-right",
+          toast.success("Account Created Successfully!", {
+            autoClose: 1000,
           });
           setName("");
           setEmail("");
@@ -93,12 +82,12 @@ const SignUp = () => {
           />
           <div className="signup-password">
             {show ? (
+              <AiOutlineEye className="btn-see" onClick={handleClick} />
+            ) : (
               <AiOutlineEyeInvisible
                 className="btn-see"
                 onClick={handleClick}
               />
-            ) : (
-              <AiOutlineEye className="btn-see" onClick={handleClick} />
             )}
 
             <input
@@ -140,6 +129,18 @@ const SignUp = () => {
           </Link>
         </p>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
