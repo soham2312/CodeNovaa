@@ -4,6 +4,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/_.png";
 import { BsGoogle, BsGithub, BsLinkedin } from "react-icons/bs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,7 +20,9 @@ const Login = () => {
     console.log(password);
 
     if (!password || !username) {
-      alert("enter all the field");
+      toast.error("Enter all the field", {
+        autoClose: 1000,
+      });
     } else {
       try {
         const config = {
@@ -36,11 +40,18 @@ const Login = () => {
           console.log(data);
           localStorage.setItem("userInfo", JSON.stringify(data));
           navigate("/me");
+          toast.success("Logged in successfully!", {
+            autoClose: 1000,
+          });
         } else {
           throw new Error("Invalid");
         }
       } catch (err) {
-        alert(err);
+        // alert(err);
+        // console.log(err.response.data.message);
+        toast.error(err.response.data.message, {
+          autoClose: 1000,
+        });
       }
     }
   };
@@ -97,6 +108,18 @@ const Login = () => {
           <a className="btn-cta-blue">Sign Up</a>
         </Link>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

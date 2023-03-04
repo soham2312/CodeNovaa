@@ -151,10 +151,16 @@ const DiscussionChat = () => {
         // console.log(messages);
         setAnswer("");
         setAnswercode("");
+        toast.success("Answer submitted successfully", {
+          autoClose: 2000,
+        });
         // console.log(data.chat[0]);
         // setDiscussionData(data.chat[0]);
       } catch (error) {
         console.log(error);
+        toast.error("Enter Your Answer", {
+          autoClose: 2000,
+        });
       }
     }
   };

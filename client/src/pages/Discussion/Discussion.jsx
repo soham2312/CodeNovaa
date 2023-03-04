@@ -16,6 +16,7 @@ const Discussion = () => {
   const [discussionName, setDiscussionName] = useState("");
   const [discription, setDiscription] = useState("");
   const [code, setCode] = useState("");
+
   const handleClick = async () => {
     if (!discussionName) {
       alert("Enter discussion Name");
