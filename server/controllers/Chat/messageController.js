@@ -8,7 +8,7 @@ exports.sendMessage = catchAsync(async (req, res, next) => {
   const { content, chatId, code } = req.body;
 
   if (!content || !chatId) {
-    console.log("Invalid data passed into request");
+    // console.log("Invalid data passed into request");
     return res.sendStatus(400);
   }
 
@@ -66,7 +66,7 @@ exports.sendMessage = catchAsync(async (req, res, next) => {
       });
       res.status(201).json(message);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
 
       return next(new AppError(err.message, 400));
     }
@@ -89,7 +89,7 @@ exports.sendMessage = catchAsync(async (req, res, next) => {
       });
       res.status(201).json(message);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
 
       return next(new AppError(err.message, 400));
     }
@@ -103,7 +103,7 @@ exports.getAllMessage = catchAsync(async (req, res, next) => {
       .populate("chat");
     res.json(message);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     // res.status(400);
     // throw new Error(err.message);
     return next(new AppError(error.message, 400));
@@ -162,7 +162,7 @@ exports.doVotes = catchAsync(async (req, res, next) => {
           }
         );
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         res.status(401).json({ error: err });
       }
     }

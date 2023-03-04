@@ -21,7 +21,7 @@ exports.deleteDiscussion = catchAsync(async (req, res, next) => {
   await Chat.findByIdAndDelete(chatId);
 
   const chatMessage = Message.deleteMany({ chat: chatId });
-  console.log(chatMessage);
+  // console.log(chatMessage);
   res.status(201).json({
     status: "success",
   });
@@ -32,7 +32,7 @@ exports.deleteMessage = catchAsync(async (req, res, next) => {
   // await Chat.findByIdAndDelete(chatId);
 
   const chatMessage = await Message.findByIdAndDelete(messageId);
-  console.log(chatMessage);
+  // console.log(chatMessage);
   res.status(201).json({
     status: "success",
   });
