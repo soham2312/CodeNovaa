@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/_.png";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const SignUp = () => {
@@ -17,6 +18,7 @@ const SignUp = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword || !password || !name) {
+      console.log("password do no match");
       toast.error("Passwords do not match!", {
         autoClose: 1000,
       });
@@ -38,23 +40,26 @@ const SignUp = () => {
           },
           config
         );
-        console.log(data);
+        toast.success("Check mail for verification", {
+          autoClose: 1000,
+        });
+        // console.log(data);
+
         const fdata = await data.token;
         if (res.status === 422 || !fdata) {
           toast.error("invalid credentials", {
             autoClose: 1000,
           });
         } else {
-          toast.success("Account Created Successfully!", {
-            autoClose: 1000,
-          });
           setName("");
           setEmail("");
           setPassword("");
           setConfirmPassword("");
         }
       } catch (err) {
-        console.log(err);
+        toast.error(err.response.data.message, {
+          autoClose: 1000,
+        });
       }
     }
   };
