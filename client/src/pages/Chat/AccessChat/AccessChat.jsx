@@ -9,7 +9,7 @@ import {
   isSameSenderMargin,
   isSameUser,
 } from "../../../context/ChatLogics";
-const AccessChat = ({ messages, setMessages }) => {
+const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
   //   const [messages, setMessages] = useState();
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
   const fetchMessages = async () => {
@@ -27,6 +27,7 @@ const AccessChat = ({ messages, setMessages }) => {
         `http://localhost:5000/api/v1/message/${selectedChat._id}`,
         config
       );
+      socket.emit("join chat", selectedChat._id);
       setMessages(data);
       // console.log(user);
       //   console.log(data[0].content);
@@ -36,9 +37,28 @@ const AccessChat = ({ messages, setMessages }) => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchMessages();
+    selectedChatCompare = selectedChat;
   }, [selectedChat]);
+
+  useEffect(() => {
+    socket
+      ? socket.on("message recieved", (newMessageReceived) => {
+          // console.log("oooooooooooooooooooooooooooooooooooooooooooooooo");
+          if (
+            !selectedChatCompare ||
+            selectedChatCompare._id !== newMessageReceived.chat._id
+          ) {
+            //notification
+          } else {
+            // console.log(newMessageReceived);
+            setMessages([...messages, newMessageReceived]);
+          }
+        })
+      : "";
+  });
   return (
     <div
       style={{

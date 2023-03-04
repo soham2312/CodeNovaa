@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import { ChatState } from "../../../context/ChatProvider";
 import axios from "axios";
 // import ChatNameAvatar from "./ChatNameAvatar/ChatNameAvatar";
+
 import "./ChatName.css";
+
+const ENDPOINT = "http://localhost:5000";
+var socket, selectedChatCompare;
 const ChatName = () => {
   const [loggedUser, setLoggedUser] = useState();
+  const [socketConnected, setSocketConnected] = useState(false);
 
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+
   const fetchChats = async () => {
     // console.log(user);
     try {
