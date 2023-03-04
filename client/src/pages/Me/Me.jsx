@@ -42,7 +42,7 @@ const Me = () => {
         },
       };
       const { data } = await axios.get(
-        `http://localhost:5000/api/v1/users/${slug}`,
+        `https://codenova-api.onrender.com/api/v1/users/${slug}`,
 
         config
       );

@@ -15,7 +15,7 @@ const Reports = () => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:5000/api/v1/admin/all-reports`,
+        `https://codenova-api.onrender.com/api/v1/admin/all-reports`,
         config
       );
 

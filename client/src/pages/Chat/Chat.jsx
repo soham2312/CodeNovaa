@@ -8,7 +8,7 @@ import MessageBox from "./MessageBox/MessageBox";
 import axios from "axios";
 import io from "socket.io-client";
 
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://codenova-api.onrender.com/";
 var socket, selectedChatCompare;
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -42,7 +42,7 @@ const Chat = () => {
         };
         setNewMessage("");
         const { data } = await axios.post(
-          "http://localhost:5000/api/v1/message",
+          "https://codenova-api.onrender.com/api/v1/message",
           {
             content: newMessage,
             chatId: selectedChat._id,
