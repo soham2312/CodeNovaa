@@ -3,6 +3,7 @@ const catchAsync = require("./../utils/catchAsync");
 const User = require("./../models/userModel");
 const jwt = require("jsonwebtoken");
 const AppError = require("./../utils/appError");
+const nodemailer = require("nodemailer");
 
 dotenv.config();
 
@@ -49,6 +50,26 @@ exports.signup = catchAsync(async (req, res, next) => {
   const url = `${req.protocol}://${req.get("host")}/me`;
 
   createSendToken(newUser, 201, res);
+
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "impostercrewfreedom@gmail.com",
+      pass: "avuwpktrouxkalqw",
+    },
+  });
+  var mailoptions = {
+    from: "impostercrewfreedom@gmail.com",
+    to: req.body.email,
+    subject: "click on this link to verify your",
+  };
+  transporter.sendMail(mailoptions, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Email send: " + result.response);
+    }
+  });
 });
 
 exports.login = catchAsync(async (req, res, next) => {
