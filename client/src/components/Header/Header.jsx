@@ -1,11 +1,13 @@
 import React, { Fragment } from "react";
 import user from "../../assets/default.jpg";
-import { Link, NavLink, redirect } from "react-router-dom";
+import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
 import userpic from "../../assets/default.jpg";
 import { ChatState } from "../../context/ChatProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// import "./Header.css";
-import "./tempheader.css";
+import "./Header.css";
+// import "./tempheader.css";
 // import { IoNewspaper } from "react-icons/io5";
 
 const Menu = () => {
@@ -29,10 +31,14 @@ const Menu = () => {
 
 const Header = () => {
   const { user } = ChatState();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.clear();
-    redirect("/login");
+    navigate("/login");
+    toast.error("You have been logged out", {
+      autoClose: 1000,
+    });
   };
 
   return (
@@ -48,6 +54,18 @@ const Header = () => {
       <div onClick={handleLogout} style={{ cursor: "pointer" }}>
         Logout
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
