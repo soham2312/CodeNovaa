@@ -44,7 +44,7 @@ const Header = () => {
   return (
     <div className="header">
       <Link to="/" className="logo">
-        {"<Code Smashers />"}
+        {"<CodeNova />"}
       </Link>
       <Menu />
       <Link to={`profile/${user ? user.data.user.name : ""}`} className="user">

@@ -5,7 +5,8 @@ import axios from "axios";
 import "./Discussion.css";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import DiscussionCard from "../../components/DiscussionCard/DiscussionCard";
 
 const Discussion = () => {
@@ -19,7 +20,9 @@ const Discussion = () => {
 
   const handleClick = async () => {
     if (!discussionName) {
-      alert("Enter discussion Name");
+      toast.error("Enter discussion Name", {
+        autoClose: 1000,
+      });
     } else {
       try {
         const config = {
@@ -37,6 +40,9 @@ const Discussion = () => {
           },
           config
         );
+        toast.success("New discussion added", {
+          autoClose: 1000,
+        });
         setNewDiscussion(data);
 
         // console.log(data);
@@ -45,6 +51,9 @@ const Discussion = () => {
         setDiscussionName("");
       } catch (error) {
         console.log(error);
+        toast.error(error.response.data.message, {
+          autoClose: 1000,
+        });
       }
     }
   };
@@ -136,6 +145,18 @@ const Discussion = () => {
         )}
         {/* <DiscussionCard/> */}
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
