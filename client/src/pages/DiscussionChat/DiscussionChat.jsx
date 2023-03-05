@@ -141,6 +141,9 @@ const DiscussionChat = () => {
             }`,
           },
         };
+        toast.success("Answer submitted successfully", {
+          autoClose: 2000,
+        });
         const { data } = await axios.post(
           `https://codenova-api.onrender.com/api/v1/message/`,
           { content: answer, code: answercode, chatId: discussionData._id },
@@ -180,10 +183,16 @@ const DiscussionChat = () => {
       <div className="discussion-chat-question">
         <div className="discussion-chat-question-content">
           <h2>{discussionData.chatName ? discussionData.chatName : ""}</h2>
-          <p>{discussionData.discription ? discussionData.discription : ""}</p>
-          <pre className="discussion-chat-question-code">
-            <code>{`${discussionData.code ? discussionData.code : ""}`}</code>
-          </pre>
+          {discussionData.discription && (
+            <p>
+              {discussionData.discription ? discussionData.discription : ""}
+            </p>
+          )}
+          {discussionData.code && (
+            <pre className="discussion-chat-question-code">
+              <code>{`${discussionData.code ? discussionData.code : ""}`}</code>
+            </pre>
+          )}
         </div>
         <div className="discussion-chat-question-line"></div>
 

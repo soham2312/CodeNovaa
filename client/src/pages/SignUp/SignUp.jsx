@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import "./SignUp.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
-import logo from "../../assets/_.png";
+import logo from "../../assets/codenova.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { BeatLoader } from "react-spinners";
 
 const SignUp = () => {
   const [show, setshow] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const handleClick = () => setshow(!show);
 
@@ -30,6 +32,7 @@ const SignUp = () => {
             "content-type": "application/json",
           },
         };
+        setLoading(true);
         const { data } = await axios.post(
           "https://codenova-api.onrender.com/api/v1/users/signup",
           {
@@ -44,22 +47,26 @@ const SignUp = () => {
           autoClose: 1000,
         });
         // console.log(data);
+        setLoading(false);
 
         const fdata = await data.token;
         if (res.status === 422 || !fdata) {
           toast.error("invalid credentials", {
             autoClose: 1000,
           });
+          setLoading(false);
         } else {
           setName("");
           setEmail("");
           setPassword("");
           setConfirmPassword("");
+          setLoading(false);
         }
       } catch (err) {
         toast.error(err.response.data.message, {
           autoClose: 1000,
         });
+        setLoading(false);
       }
     }
   };
@@ -123,7 +130,7 @@ const SignUp = () => {
           />
         </div>
         <a type="submit" className="btn-cta-orange" onClick={submitHandler}>
-          Sign Up
+          {loading ? <BeatLoader color="#fff" /> : "Sign Up"}
         </a>
       </div>
       <div className="signup-footer">

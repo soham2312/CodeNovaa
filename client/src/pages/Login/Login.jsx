@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "./Login.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
-import logo from "../../assets/_.png";
+import logo from "../../assets/codenova.png";
 import { BsGoogle, BsGithub, BsLinkedin } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BeatLoader } from "react-spinners";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const [loginstatus, setloginstatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const login = async (e) => {
     e.preventDefault();
@@ -30,6 +32,7 @@ const Login = () => {
             "content-type": "application/json",
           },
         };
+        setLoading(true);
         const { data } = await axios.post(
           "https://codenova-api.onrender.com/api/v1/users/login",
           { email: username, password: password },
@@ -39,12 +42,14 @@ const Login = () => {
         if (fdata) {
           console.log(data);
           localStorage.setItem("userInfo", JSON.stringify(data));
-          navigate("/me");
+          navigate("/discussion");
           toast.success("Logged in successfully!", {
             autoClose: 1000,
           });
+          setLoading(false);
         } else {
           throw new Error("Invalid");
+          setLoading(false);
         }
       } catch (err) {
         // alert(err);
@@ -87,7 +92,7 @@ const Login = () => {
           {/* </div> */}
         </div>
         <a type="submit" className="btn-cta-orange" onClick={login}>
-          Login
+          {loading ? <BeatLoader color="#fff" /> : "Login"}
         </a>
         <div className="login-options">
           <BsGoogle className="login-google" />
