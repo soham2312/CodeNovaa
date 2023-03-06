@@ -29,6 +29,8 @@ const Me = () => {
   const { slug } = useParams();
   const { user } = ChatState();
   const [viewUser, setViewUser] = useState(null);
+  const [isTrue, setIsTrue] = useState(false);
+  const [request, setRequest] = useState(false);
   console.log(slug);
 
   const pageLoad = async () => {
@@ -53,8 +55,41 @@ const Me = () => {
       console.error(error);
     }
   };
+
+  const isRequested = async () => {
+    const requested = viewUser.friendsRequest.includes(
+      JSON.parse(localStorage.getItem("userInfo")).data.user._id
+    );
+    if (requested) {
+      setRequest(true);
+    }
+  };
+
+  const makeFriend = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("userInfo")).token
+          }`,
+        },
+      };
+      const { data } = await axios.post(
+        `http://localhost:5000/api/v1/users/make-friend`,
+        { friendId: viewUser._id },
+
+        config
+      );
+      setIsTrue(true);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     pageLoad();
+    isRequested();
   }, []);
   return (
     <div className="profile">
@@ -84,6 +119,25 @@ const Me = () => {
         <Outlet />
       </div>
       <h1>{viewUser ? viewUser.name : ""}</h1>
+      {JSON.parse(localStorage.getItem("userInfo")).data.user._id !==
+      (viewUser ? viewUser._id : "") ? (
+        !request ? (
+          <button className="btn-cta-orange" onClick={makeFriend}>
+            Make Connection
+          </button>
+        ) : (
+          "Connection Requested"
+        )
+      ) : (
+        ""
+      )}
+      {isTrue ? "Request Sent" : ""}
+      {JSON.parse(localStorage.getItem("userInfo")).data.user._id !==
+      (viewUser ? viewUser._id : "") ? (
+        ""
+      ) : (
+        <button className="btn-cta-green">Edit Profile</button>
+      )}
     </div>
   );
 };
