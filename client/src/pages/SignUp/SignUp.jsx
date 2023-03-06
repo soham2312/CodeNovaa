@@ -110,15 +110,6 @@ const SignUp = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="signup-username"
             />
-
-            {/* <a
-              h="1.75rem"
-              size="sm"
-              className="btn-cta-orange"
-              onClick={handleClick}
-            >
-              {show ? "Hide" : "Show"}
-            </a> */}
           </div>
           <input
             type={show ? "text" : "password"}
