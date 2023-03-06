@@ -97,6 +97,15 @@ exports.makeFriend = catchAsync(async (req, res, next) => {
       message: "Friend removed sucessfully",
     });
   }
+
+  const alreadyRequested = await User.find({
+    _id: friendId,
+    $and: [{ friendsRequest: { $elemMatch: { $eq: userId } } }],
+  });
+
+  if (alreadyRequested.length > 0) {
+    return next(new AppError("You already requested to this Id ", 400));
+  }
   const friend = await User.findByIdAndUpdate(
     friendId,
     {
