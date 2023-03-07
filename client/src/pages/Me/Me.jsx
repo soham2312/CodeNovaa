@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, Link, useParams } from "react-router-dom";
 import userpic from "../../assets/default.jpg";
+import FriendCard from "../../components/FriendCard/FriendCard";
 import FriendRequest from "../../components/FriendRequest/FriendRequest";
 import { ChatState } from "../../context/ChatProvider";
 import "./Me.css";
@@ -54,23 +55,22 @@ const Me = () => {
 
       console.log(data.user);
       setViewUser(data.user[0]);
-
-      const frnd = data.user[0].friends
-        ? data.user[0].friends.includes(
-            JSON.parse(localStorage.getItem("userInfo")).data.user._id
-          )
-        : false;
-      if (frnd) {
-        setAlreadyFriend(true);
+      for (let i = 0; i < data.user[0].friends.length; i++) {
+        if (
+          data.user[0].friends[i]._id ===
+          JSON.parse(localStorage.getItem("userInfo")).data.user._id
+        ) {
+          setAlreadyFriend(true);
+        }
       }
 
-      const requested = data.user[0].friendsRequest
-        ? data.user[0].friendsRequest.includes(
-            JSON.parse(localStorage.getItem("userInfo")).data.user._id
-          )
-        : false;
-      if (requested) {
-        setRequest(true);
+      for (let i = 0; i < data.user[0].friendsRequest.length; i++) {
+        if (
+          data.user[0].friendsRequest[i]._id ===
+          JSON.parse(localStorage.getItem("userInfo")).data.user._id
+        ) {
+          setRequest(true);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -153,7 +153,23 @@ const Me = () => {
       ) : (
         ""
       )}
+      <br />
+      {JSON.parse(localStorage.getItem("userInfo")).data.user._id ===
+      (viewUser ? viewUser._id : "") ? (
+        <div className="friends">
+          <h3>Friends</h3>
+          {viewUser
+            ? viewUser.friends.map((item) => (
+                <FriendCard item={item} key={item._id} />
+              ))
+            : ""}
+        </div>
+      ) : (
+        ""
+      )}
 
+      <br />
+      {/* <h2>Request Pendings</h2> */}
       {JSON.parse(localStorage.getItem("userInfo")).data.user._id ===
       (viewUser ? viewUser._id : "") ? (
         <div className="friendRequests">
