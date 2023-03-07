@@ -33,6 +33,7 @@ const Me = () => {
   const [isTrue, setIsTrue] = useState(false);
   const [request, setRequest] = useState(false);
   const [alreadyFriend, setAlreadyFriend] = useState(false);
+  const [click, setClick] = useState(false);
   // console.log(slug);
 
   const pageLoad = async () => {
@@ -100,7 +101,7 @@ const Me = () => {
   };
   useEffect(() => {
     pageLoad();
-  }, []);
+  }, [click]);
   return (
     <div className="profile">
       <div className="profile-center">
@@ -122,6 +123,7 @@ const Me = () => {
         ) : (
           ""
         )}
+        <h4>Friend of {viewUser ? viewUser.friends.length : ""} user</h4>
 
         <div className="profile-platform">
           <Platform />
@@ -157,7 +159,12 @@ const Me = () => {
         <div className="friendRequests">
           {viewUser.friendsRequest
             ? viewUser.friendsRequest.map((item) => (
-                <FriendRequest item={item} key={item._id ? item._id : ""} />
+                <FriendRequest
+                  item={item}
+                  key={item._id ? item._id : ""}
+                  setClick={setClick}
+                  click={click}
+                />
               ))
             : ""}
         </div>
