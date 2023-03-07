@@ -31,7 +31,8 @@ const Me = () => {
   const [viewUser, setViewUser] = useState(null);
   const [isTrue, setIsTrue] = useState(false);
   const [request, setRequest] = useState(false);
-  console.log(slug);
+  const [alreadyFriend, setAlreadyFriend] = useState(false);
+  // console.log(slug);
 
   const pageLoad = async () => {
     try {
@@ -51,19 +52,32 @@ const Me = () => {
 
       console.log(data.user);
       setViewUser(data.user[0]);
+
+      const frnd = data.user[0].friends
+        ? data.user[0].friends.includes(
+            JSON.parse(localStorage.getItem("userInfo")).data.user._id
+          )
+        : false;
+      if (frnd) {
+        setAlreadyFriend(true);
+      }
+
+      const requested = data.user[0].friendsRequest
+        ? data.user[0].friendsRequest.includes(
+            JSON.parse(localStorage.getItem("userInfo")).data.user._id
+          )
+        : false;
+      if (requested) {
+        setRequest(true);
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const isRequested = async () => {
-    const requested = viewUser.friendsRequest.includes(
-      JSON.parse(localStorage.getItem("userInfo")).data.user._id
-    );
-    if (requested) {
-      setRequest(true);
-    }
-  };
+  const isFriend = async () => {};
+
+  const isRequested = async () => {};
 
   const makeFriend = async () => {
     try {
@@ -89,6 +103,7 @@ const Me = () => {
   };
   useEffect(() => {
     pageLoad();
+    isFriend();
     isRequested();
   }, []);
   return (
@@ -121,22 +136,25 @@ const Me = () => {
       <h1>{viewUser ? viewUser.name : ""}</h1>
       {JSON.parse(localStorage.getItem("userInfo")).data.user._id !==
       (viewUser ? viewUser._id : "") ? (
-        !request ? (
-          <button className="btn-cta-orange" onClick={makeFriend}>
-            Make Connection
-          </button>
-        ) : (
-          "Connection Requested"
-        )
-      ) : (
-        ""
-      )}
-      {isTrue ? "Request Sent" : ""}
-      {JSON.parse(localStorage.getItem("userInfo")).data.user._id !==
-      (viewUser ? viewUser._id : "") ? (
         ""
       ) : (
         <button className="btn-cta-green">Edit Profile</button>
+      )}
+      {JSON.parse(localStorage.getItem("userInfo")).data.user._id !==
+      (viewUser ? viewUser._id : "") ? (
+        alreadyFriend ? (
+          "Your are friends"
+        ) : request ? (
+          "already Requested"
+        ) : isTrue ? (
+          "Request sent"
+        ) : (
+          <button className="btn-cta-orange" onClick={makeFriend}>
+            Make Connection
+          </button>
+        )
+      ) : (
+        ""
       )}
     </div>
   );
