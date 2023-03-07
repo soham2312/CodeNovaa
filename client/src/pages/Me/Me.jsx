@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, Link, useParams } from "react-router-dom";
 import userpic from "../../assets/default.jpg";
+import FriendRequest from "../../components/FriendRequest/FriendRequest";
 import { ChatState } from "../../context/ChatProvider";
 import "./Me.css";
 
@@ -45,7 +46,7 @@ const Me = () => {
         },
       };
       const { data } = await axios.get(
-        `https://codenova-api.onrender.com/api/v1/users/${slug}`,
+        `http://localhost:5000/api/v1/users/${slug}`,
 
         config
       );
@@ -75,10 +76,6 @@ const Me = () => {
     }
   };
 
-  const isFriend = async () => {};
-
-  const isRequested = async () => {};
-
   const makeFriend = async () => {
     try {
       const config = {
@@ -103,8 +100,6 @@ const Me = () => {
   };
   useEffect(() => {
     pageLoad();
-    isFriend();
-    isRequested();
   }, []);
   return (
     <div className="profile">
@@ -153,6 +148,19 @@ const Me = () => {
             Make Connection
           </button>
         )
+      ) : (
+        ""
+      )}
+
+      {JSON.parse(localStorage.getItem("userInfo")).data.user._id ===
+      (viewUser ? viewUser._id : "") ? (
+        <div className="friendRequests">
+          {viewUser.friendsRequest
+            ? viewUser.friendsRequest.map((item) => (
+                <FriendRequest item={item} key={item._id ? item._id : ""} />
+              ))
+            : ""}
+        </div>
       ) : (
         ""
       )}
