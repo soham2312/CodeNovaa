@@ -41,15 +41,15 @@
   border-radius: 50px;
 }
 .login-password {
-  flex-direction: row;
-  align-items: center;
-  padding: 10px 7px 10px 24px;
-  gap: 91px;
-  width: 300px;
-  height: 40px;
-  background: #ffffff;
-  border: 1px solid #e6e6e6;
-  border-radius: 50px;
+  display: flex;
+  position: relative;
+}
+.btn-see {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 999;
 }
 .login-input {
   display: flex;
