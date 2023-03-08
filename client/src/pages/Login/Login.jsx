@@ -7,15 +7,16 @@ import { BsGoogle, BsGithub, BsLinkedin } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BeatLoader } from "react-spinners";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [show, setshow] = useState(false);
   const [loginstatus, setloginstatus] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const handleClick = () => setshow(!show);
   const login = async (e) => {
     e.preventDefault();
     console.log(username);
@@ -67,7 +68,6 @@ const Login = () => {
         <img src={logo} />
         <h3 className="login-welcome">Welcome Back</h3>
         <div className="login-input">
-          {/* <div className="login-username"> */}
           <input
             type="text"
             placeholder="username"
@@ -78,18 +78,25 @@ const Login = () => {
               setUsername(e.target.value);
             }}
           />
-          {/* </div>
-          <div className="login-password"> */}
-          <input
-            type="password"
-            placeholder="Password"
-            className="login-username"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          {/* </div> */}
+          <div className="login-password">
+            {show ? (
+              <AiOutlineEye className="btn-see" onClick={handleClick} />
+            ) : (
+              <AiOutlineEyeInvisible
+                className="btn-see"
+                onClick={handleClick}
+              />
+            )}
+            <input
+              type={show ? "text" : "password"}
+              placeholder="Password"
+              className="login-username"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
         </div>
         <a type="submit" className="btn-cta-orange" onClick={login}>
           {loading ? <BeatLoader color="#fff" /> : "Login"}
