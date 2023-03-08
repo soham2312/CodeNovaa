@@ -5,6 +5,9 @@ import userpic from "../../assets/default.jpg";
 import { ChatState } from "../../context/ChatProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IoIosPaper, IoMdChatboxes } from "react-icons/io";
+import { BsChatRightDotsFill } from "react-icons/bs";
+import { RiGroupFill } from "react-icons/ri";
 
 import "./Header.css";
 // import "./tempheader.css";
@@ -14,15 +17,19 @@ const Menu = () => {
   return (
     <div className="menu">
       <NavLink to="/" className="menu-link">
+        <IoIosPaper />
         Questions
       </NavLink>
       <NavLink to="discussion" className="menu-link">
+        <IoMdChatboxes />
         Discussion
       </NavLink>
       <NavLink to="chat" className="menu-link">
+        <BsChatRightDotsFill />
         Chat
       </NavLink>
       <NavLink to="social" className="menu-link">
+        <RiGroupFill />
         Social
       </NavLink>
     </div>

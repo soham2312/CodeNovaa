@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Link, Router, Routes } from "react-router-dom";
-import Me from "./pages/Me/Me";
+import Me from "./pages/Profile/Profile";
 import Header from "./components/Header/Header";
 import Codeforces from "./components/platform/Codeforces";
 import Github from "./components/platform/Github";

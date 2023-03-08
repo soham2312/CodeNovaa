@@ -5,23 +5,39 @@ import userpic from "../../assets/default.jpg";
 import FriendCard from "../../components/FriendCard/FriendCard";
 import FriendRequest from "../../components/FriendRequest/FriendRequest";
 import { ChatState } from "../../context/ChatProvider";
-import "./Me.css";
+import { FaUserFriends } from "react-icons/fa";
+import { AiTwotoneEdit } from "react-icons/ai";
+
+import {
+  SiGithub,
+  SiCodeforces,
+  SiCodechef,
+  SiLeetcode,
+  SiGeeksforgeeks,
+} from "react-icons/si";
+
+import "./Profile.css";
 
 const Platform = () => (
   <div className="platform">
-    <NavLink to="/me/github" className="platform-link">
+    <NavLink to="/profile/github" className="platform-link">
+      <SiGithub />
       Github
     </NavLink>
-    <NavLink to="/me/codeforces" className="platform-link">
+    <NavLink to="/profile/codeforces" className="platform-link">
+      <SiCodeforces />
       Codeforces
     </NavLink>
-    <NavLink to="/me/codechef" className="platform-link">
+    <NavLink to="/profile/codechef" className="platform-link">
+      <SiCodechef />
       Codechef
     </NavLink>
-    <NavLink to="/me/leetcode" className="platform-link">
+    <NavLink to="/profile/leetcode" className="platform-link">
+      <SiLeetcode />
       Leetcode
     </NavLink>
-    <NavLink to="/me/geeksforgeeks" className="platform-link">
+    <NavLink to="/profile/geeksforgeeks" className="platform-link">
+      <SiGeeksforgeeks />
       GFG
     </NavLink>
   </div>
@@ -99,44 +115,69 @@ const Me = () => {
       console.error(error);
     }
   };
+
   useEffect(() => {
     pageLoad();
   }, [click]);
+
   return (
     <div className="profile">
-      <div className="profile-center">
-        <div className="photo">
+      <div className="profile-content">
+        <div className="profile-pic">
           <img src={userpic} alt="user" />
         </div>
-        {JSON.parse(localStorage.getItem("userInfo")).data.user.role ===
-        "admin" ? (
-          // <button className="btn">View Chats</button>
+        <div className="profile-content-details">
+          {JSON.parse(localStorage.getItem("userInfo")).data.user._id !==
+          (viewUser ? viewUser._id : "") ? (
+            ""
+          ) : (
+            <div className="profile-edit">
+              <AiTwotoneEdit />
+            </div>
+          )}
 
-          <Link to="/admin-chats">View Chats</Link>
-        ) : (
-          // <Link to="/view-reports">View Reports</Link>
-          ""
-        )}
-        {JSON.parse(localStorage.getItem("userInfo")).data.user.role ===
-        "admin" ? (
-          <Link to="/view-reports">View Reports</Link>
-        ) : (
-          ""
-        )}
-        <h4>Friend of {viewUser ? viewUser.friends.length : ""} user</h4>
+          <h1>{viewUser ? viewUser.name : ""}</h1>
+          <h2>IIITDM Jabalpur CSE’25</h2>
+          <div className="profile-content-friend">
+            <FaUserFriends />
+            <h3>Friend of {viewUser ? viewUser.friends.length : ""} user</h3>
+          </div>
+          <div className="profile-techstack">
+            <h3>Tech Stack</h3>
+            <div className="profile-techstack-detail">
+              <div className="techstack">HTML</div>
+              <div className="techstack">CSS</div>
+              <div className="techstack">JavaScript</div>
+              <div className="techstack">React</div>
+              <div className="techstack">Node.js</div>
+              <div className="techstack">Express</div>
+            </div>
+          </div>
 
-        <div className="profile-platform">
-          <Platform />
+          <div className="profile-admin">
+            {JSON.parse(localStorage.getItem("userInfo")).data.user.role ===
+            "admin" ? (
+              // <button className="btn">View Chats</button>
+
+              <Link to="/admin-chats">View Chats</Link>
+            ) : (
+              // <Link to="/view-reports">View Reports</Link>
+              ""
+            )}
+            {JSON.parse(localStorage.getItem("userInfo")).data.user.role ===
+            "admin" ? (
+              <Link to="/view-reports">View Reports</Link>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
-        <Outlet />
       </div>
-      <h1>{viewUser ? viewUser.name : ""}</h1>
-      {JSON.parse(localStorage.getItem("userInfo")).data.user._id !==
-      (viewUser ? viewUser._id : "") ? (
-        ""
-      ) : (
-        <button className="btn-cta-green">Edit Profile</button>
-      )}
+      <div className="profile-platform">
+        <Platform />
+      </div>
+      <Outlet />
+
       {JSON.parse(localStorage.getItem("userInfo")).data.user._id !==
       (viewUser ? viewUser._id : "") ? (
         alreadyFriend ? (
