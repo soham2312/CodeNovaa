@@ -12,6 +12,7 @@ import {
 const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
   //   const [messages, setMessages] = useState();
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const [bool, setBool] = useState(false);
   const fetchMessages = async () => {
     if (!selectedChat) {
       return;
@@ -43,6 +44,10 @@ const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
 
+  // useEffect(() => {
+  //   fetchMessages();
+  // }, [bool]);
+
   useEffect(() => {
     socket
       ? socket.on("message recieved", (newMessageReceived) => {
@@ -53,8 +58,14 @@ const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
           ) {
             //notification
           } else {
+            // console.log("------------received--------------");
             // console.log(newMessageReceived);
-            setMessages([...messages, newMessageReceived]);
+            setBool(!bool);
+            // Microsoft Edge
+            setMessages((messages) => [...messages, newMessageReceived]);
+
+            //Chrome
+            // setMessages([...messages, newMessageReceived]);
           }
         })
       : "";
