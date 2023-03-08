@@ -8,7 +8,7 @@ import MessageBox from "./MessageBox/MessageBox";
 import axios from "axios";
 import io from "socket.io-client";
 
-const ENDPOINT = "https://codenova-api.onrender.com/";
+const ENDPOINT = "http://localhost:5000/";
 var socket, selectedChatCompare;
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -58,20 +58,21 @@ const Chat = () => {
     }
   };
 
-  useEffect(() => {
-    socket.on("message recieved", (newMessageReceived) => {
-      // console.log("oooooooooooooooooooooooooooooooooooooooooooooooo");
-      if (
-        !selectedChatCompare ||
-        selectedChatCompare._id !== newMessageReceived.chat._id
-      ) {
-        //notification
-      } else {
-        // console.log(newMessageReceived);
-        setMessages([...messages, newMessageReceived]);
-      }
-    });
-  });
+  // useEffect(() => {
+  //   socket.on("message recieved", (newMessageReceived) => {
+  //     // console.log("oooooooooooooooooooooooooooooooooooooooooooooooo");
+  //     if (
+  //       !selectedChatCompare ||
+  //       selectedChatCompare._id !== newMessageReceived.chat._id
+  //     ) {
+  //       //notification
+  //     } else {
+  //       console.log("=-----------new------------=");
+  //       console.log(newMessageReceived);
+  //       setMessages([...messages, newMessageReceived]);
+  //     }
+  //   });
+  // });
   return (
     <div className="chat-box">
       <div className="chatName">
