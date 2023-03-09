@@ -15,6 +15,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [pic, setPic] = useState();
   const handleClick = () => setshow(!show);
 
   const submitHandler = async (e) => {
@@ -34,12 +35,13 @@ const SignUp = () => {
         };
         setLoading(true);
         const { data } = await axios.post(
-          "https://codenova-api.onrender.com/api/v1/users/signup",
+          "http://localhost:5000/api/v1/users/signup",
           {
             name: name,
             email: email,
             password: password,
             confirmPassword: confirmPassword,
+            photo: pic,
           },
           config
         );
@@ -50,7 +52,7 @@ const SignUp = () => {
         setLoading(false);
 
         const fdata = await data.token;
-        if (res.status === 422 || !fdata) {
+        if (!fdata) {
           toast.error("invalid credentials", {
             autoClose: 1000,
           });
@@ -63,11 +65,42 @@ const SignUp = () => {
           setLoading(false);
         }
       } catch (err) {
+        console.log(err);
         toast.error(err.response.data.message, {
           autoClose: 1000,
         });
         setLoading(false);
       }
+    }
+  };
+  const postDetails = (pics) => {
+    setLoading(true);
+    if (pics == undefined) {
+      alert("not uploaded");
+      return;
+    }
+    if (pics.type === "image/jpeg" || pics.type === "/image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "codenova");
+      data.append("cloud_name", "df4t1zu7e");
+      fetch("https://api.cloudinary.com/v1_1/df4t1zu7e/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          console.log(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      alert("please select an image ");
+      setLoading(false);
     }
   };
   return (
@@ -118,6 +151,11 @@ const SignUp = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="signup-username"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => postDetails(e.target.files[0])}
           />
         </div>
         <a type="submit" className="btn-cta-orange" onClick={submitHandler}>
