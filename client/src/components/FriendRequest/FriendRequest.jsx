@@ -54,6 +54,9 @@ const FriendRequest = ({ item, setClick, click }) => {
     <div className="question">
       <div className="question-txt">
         <p>Requested By:</p>
+        <div className="profile-pic">
+          <img src={item.photo ? item.photo : ""} alt="user-image" />
+        </div>
         <h3>{item.name ? item.name : ""}</h3>
         {/* <h5>{item.chatId ? item.chatId.discription : ""}</h5> */}
       </div>

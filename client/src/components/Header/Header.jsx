@@ -67,7 +67,15 @@ const Header = () => {
         className="user"
       >
         <p>{user ? user.data.user.name : <Link to="/login">login</Link>}</p>
-        <img src={userpic} alt="user" className="user-img" />
+        {user ? (
+          <img
+            src={user ? user.data.user.photo : ""}
+            alt="user"
+            className="user-img"
+          />
+        ) : (
+          ""
+        )}
       </Link>
       <div onClick={handleLogout} style={{ cursor: "pointer" }}>
         Logout
