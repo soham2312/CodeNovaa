@@ -1,8 +1,11 @@
 const express = require("express");
+
 const userController = require("./../controllers/userController");
 const authController = require("./../controllers/authController");
 
 const router = express.Router();
+
+router.post("/uploadimage", userController.UserDetails);
 
 router.route("/:name").get(userController.getUser);
 router.route("/").get(authController.protect, userController.allUsers);

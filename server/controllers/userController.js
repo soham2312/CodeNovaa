@@ -2,6 +2,21 @@ const catchAsync = require("../utils/catchAsync");
 const mongoose = require("mongoose");
 const User = require("../models/userModel");
 const AppError = require("../utils/appError");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "dkndfgutz",
+  api_key: "552732412831778",
+  api_secret: "yiSdof-bd5QSiEZam8lLb--tqDk",
+});
+
+exports.UserDetails = catchAsync(async (req, res, next) => {
+  console.log(req.body);
+  const file = req.file.image;
+  cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
+    console.log(result);
+  });
+});
 
 exports.allUsers = catchAsync(async (req, res, next) => {
   const keyword = req.query.search
