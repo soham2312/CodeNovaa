@@ -3,21 +3,21 @@ import { ChatState } from "../../context/ChatProvider";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import "./Discussion.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DiscussionCard from "../../components/DiscussionCard/DiscussionCard";
 
 const Discussion = () => {
-  const { user, setUser } = ChatState();
+  const { user, setUser, isUserLoggedIn } = ChatState();
 
   const [newDiscussion, setNewDiscussion] = useState("");
   const [discussion, setDiscussion] = useState([]);
   const [discussionName, setDiscussionName] = useState("");
   const [discription, setDiscription] = useState("");
   const [code, setCode] = useState("");
-
+  const navigate = useNavigate();
   const handleClick = async () => {
     if (!discussionName) {
       toast.error("Enter discussion Name", {
@@ -83,6 +83,10 @@ const Discussion = () => {
   // window.addEventListener("beforeunload", pageLoad);
 
   useEffect(() => {
+    if (!isUserLoggedIn.current) {
+      console.log(isUserLoggedIn.current);
+      navigate("/login");
+    }
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
 

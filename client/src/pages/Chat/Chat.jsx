@@ -7,6 +7,7 @@ import AccessChat from "./AccessChat/AccessChat";
 import MessageBox from "./MessageBox/MessageBox";
 import axios from "axios";
 import io from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 
 const ENDPOINT = "http://localhost:5000/";
 var socket, selectedChatCompare;
@@ -14,15 +15,27 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false);
-  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
-
+  const {
+    selectedChat,
+    setSelectedChat,
+    user,
+    chats,
+    setChats,
+    isUserLoggedIn,
+  } = ChatState();
+  const navigate = useNavigate();
   useEffect(() => {
+    if (!isUserLoggedIn.current) {
+      navigate("/login");
+    }
     socket = io(ENDPOINT);
     console.log(socket);
-    console.log(JSON.parse(localStorage.getItem("userInfo")).data.user);
+    // console.log(JSON.parse(localStorage.getItem("userInfo")).data.user);
     socket.emit(
       "setup",
-      JSON.parse(localStorage.getItem("userInfo")).data.user
+      JSON.parse(localStorage.getItem("userInfo"))
+        ? JSON.parse(localStorage.getItem("userInfo")).data.user
+        : ""
     );
     socket.on("connected", () => setSocketConnected(true));
     // socket.on("typing", () => setIsTyping(true));

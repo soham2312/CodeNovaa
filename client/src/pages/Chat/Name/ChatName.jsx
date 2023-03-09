@@ -32,7 +32,7 @@ const ChatName = () => {
       setChats(data);
     } catch (error) {
       console.log(error);
-      alert(error);
+      // alert(error);
     }
   };
 
