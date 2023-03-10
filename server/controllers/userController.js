@@ -208,6 +208,8 @@ exports.register = catchAsync(async (req, res, next) => {
     codechefHandle,
     leetcodeHandle,
     gfgHandle,
+    college,
+    techStack,
   } = req.body;
 
   const userId = req.user._id;
@@ -217,6 +219,8 @@ exports.register = catchAsync(async (req, res, next) => {
     codechefHandle: codechefHandle,
     leetcodeHandle: leetcodeHandle,
     gfgHandle: gfgHandle,
+    college: college,
+    techStack: techStack,
   });
   console.log(user);
 

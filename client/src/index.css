@@ -87,6 +87,20 @@ Link {
   background: #dc7418;
 }
 
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 10px;
+  background: #fa9236;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s;
+  cursor: pointer;
+  border: 1.5px solid #dc7418;
+}
+
 html {
   --scrollbarBG: #cfd8dc;
   --thumbBG: #272d3d;
