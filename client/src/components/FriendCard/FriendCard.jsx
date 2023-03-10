@@ -33,7 +33,7 @@ const FriendCard = ({ item }) => {
     <div className="question">
       <div className="question-txt">
         {/* <p>Requested By:</p> */}
-        <div className="profile-pic">
+        <div className="profile-pic-2">
           <img src={item.photo ? item.photo : ""} alt="user-image" />
         </div>
         <h3>{item.name ? item.name : ""}</h3>

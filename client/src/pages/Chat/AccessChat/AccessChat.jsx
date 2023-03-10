@@ -76,6 +76,8 @@ const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
         display: "flex",
         alignItems: "flex-start",
         flexDirection: "column",
+        border: "2px solid black",
+        width: "600px",
       }}
       className="chatBox"
     >
@@ -90,6 +92,7 @@ const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
                 borderRadius: "20px",
                 padding: "5px 15px",
                 maxWidth: "75%",
+                height: "auto",
                 marginLeft: isSameSenderMargin(
                   messages,
                   m,
@@ -101,7 +104,7 @@ const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
                   : 10,
               }}
             >
-              {m.content}
+              <p className="chat-message-content">{m.content}</p>
             </span>
           </div>
         ))
