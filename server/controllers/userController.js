@@ -200,3 +200,35 @@ exports.responseToFriendRequest = catchAsync(async (req, res, next) => {
     });
   }
 });
+
+exports.register = catchAsync(async (req, res, next) => {
+  const {
+    githubHandle,
+    codeforcesHandle,
+    codechefHandle,
+    leetcodeHandle,
+    gfgHandle,
+    college,
+    techStack,
+  } = req.body;
+
+  const userId = req.user._id;
+  const user = await User.findByIdAndUpdate(userId, {
+    githubHandle: githubHandle,
+    codeforcesHandle: codeforcesHandle,
+    codechefHandle: codechefHandle,
+    leetcodeHandle: leetcodeHandle,
+    gfgHandle: gfgHandle,
+    college: college,
+    techStack: techStack,
+  });
+  console.log(user);
+
+  if (!user) {
+    return next(new AppError("please try again", 401));
+  }
+  res.status(201).json({
+    status: "success",
+    user,
+  });
+});

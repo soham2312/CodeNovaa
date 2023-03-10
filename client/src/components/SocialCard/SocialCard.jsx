@@ -9,7 +9,7 @@ const SocialCard = ({ user }) => {
   return (
     <div className="socialcard">
       <div className="socialcard-image">
-        <img src={utkarsh} alt="user-image" />
+        <img src={user.photo} alt="user-image" />
       </div>
       <div className="socialcard-details">
         <div className="socialcard-user">{user.name}</div>

@@ -37,11 +37,12 @@ const Menu = () => {
 };
 
 const Header = () => {
-  const { user } = ChatState();
+  const { user, setOpenProfile, openProfile, isUserLoggedIn } = ChatState();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.clear();
+    isUserLoggedIn.current = null;
     navigate("/login");
     toast.error("You have been logged out", {
       autoClose: 1000,
@@ -54,9 +55,27 @@ const Header = () => {
         {"<CodeNova />"}
       </Link>
       <Menu />
-      <Link to={`profile/${user ? user.data.user.name : ""}`} className="user">
+      <Link
+        onClick={() => {
+          setOpenProfile(!openProfile);
+        }}
+        to={`profile/${
+          JSON.parse(localStorage.getItem("userInfo"))
+            ? JSON.parse(localStorage.getItem("userInfo")).data.user.name
+            : ""
+        }`}
+        className="user"
+      >
         <p>{user ? user.data.user.name : <Link to="/login">login</Link>}</p>
-        <img src={userpic} alt="user" className="user-img" />
+        {user ? (
+          <img
+            src={user ? user.data.user.photo : ""}
+            alt="user"
+            className="user-img"
+          />
+        ) : (
+          ""
+        )}
       </Link>
       <div onClick={handleLogout} style={{ cursor: "pointer" }}>
         Logout

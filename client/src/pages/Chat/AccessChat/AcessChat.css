@@ -30,3 +30,8 @@
   background: #007aff;
   border-radius: 40px;
 } */
+
+.chat-message-content {
+  max-width: 100%;
+  height: auto;
+}

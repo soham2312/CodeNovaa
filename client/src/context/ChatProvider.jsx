@@ -1,22 +1,28 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ChatContext = createContext();
-// const navigate = useNavigate();
 
 const ChatProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [selectedChat, setSelectedChat] = useState(null);
   const [chats, setChats] = useState([]);
+  const [openProfile, setOpenProfile] = useState(false);
+  const isUserLoggedIn = useRef({});
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    // console.log(userInfo);
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(userInfo);
+    console.log("--------------Global----------------");
+    isUserLoggedIn.current = userInfo;
+    console.log(isUserLoggedIn.current);
     setUser(userInfo);
     if (!userInfo) {
       // alert("n");
       console.log("you are not logged in");
-      // navigate("/login");
+      navigate("/login");
     } else {
       console.log("you are logged in");
     }
@@ -24,7 +30,17 @@ const ChatProvider = ({ children }) => {
 
   return (
     <ChatContext.Provider
-      value={{ user, setUser, chats, setChats, selectedChat, setSelectedChat }}
+      value={{
+        user,
+        setUser,
+        isUserLoggedIn,
+        openProfile,
+        setOpenProfile,
+        chats,
+        setChats,
+        selectedChat,
+        setSelectedChat,
+      }}
     >
       {children}
     </ChatContext.Provider>

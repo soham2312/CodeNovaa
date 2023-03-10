@@ -18,32 +18,34 @@ import AdminChat from "./pages/AdminChat/AdminChat";
 import DiscussionChat from "./pages/DiscussionChat/DiscussionChat";
 import Error from "./pages/Error/Error";
 import Reports from "./pages/Reports/Reports";
+import Registration from "./pages/Registration/Registration";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="" element={<Home />} />
-          <Route path="discussion" element={<Discussion />} />
-          <Route path="discussion/:slug" element={<DiscussionChat />} />
-          <Route path="admin-chats" element={<AdminChat />} />
-          <Route path="view-reports" element={<Reports />} />
-          <Route path="chat" element={<Chat />} />
-          <Route path="login" element={<Login />} />
-          <Route path="social" element={<Social />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="profile/:slug" element={<Me />}>
-            <Route path="codeforces" element={<Codeforces />} />
-            <Route path="codechef" element={<Codechef />} />
-            <Route path="leetcode" element={<Leetcode />} />
-            <Route path="github" element={<Github />} />
-            <Route path="geeksforgeeks" element={<Geeksforgeeks />} />
-          </Route>
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </BrowserRouter>
+      {/* <BrowserRouter> */}
+      <Header />
+      <Routes>
+        <Route path="" element={<Home />} />
+        <Route path="discussion" element={<Discussion />} />
+        <Route path="discussion/:slug" element={<DiscussionChat />} />
+        <Route path="admin-chats" element={<AdminChat />} />
+        <Route path="view-reports" element={<Reports />} />
+        <Route path="chat" element={<Chat />} />
+        <Route path="login" element={<Login />} />
+        <Route path="social" element={<Social />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="registration" element={<Registration />} />
+        <Route path="profile/:slug" element={<Me />}>
+          <Route path="codeforces" element={<Codeforces />} />
+          <Route path="codechef" element={<Codechef />} />
+          <Route path="leetcode" element={<Leetcode />} />
+          <Route path="github" element={<Github />} />
+          <Route path="geeksforgeeks" element={<Geeksforgeeks />} />
+        </Route>
+        <Route path="*" element={<Error />} />
+      </Routes>
+      {/* </BrowserRouter> */}
     </div>
   );
 }

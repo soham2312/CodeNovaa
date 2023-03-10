@@ -33,6 +33,9 @@ const FriendCard = ({ item }) => {
     <div className="question">
       <div className="question-txt">
         {/* <p>Requested By:</p> */}
+        <div className="profile-pic-2">
+          <img src={item.photo ? item.photo : ""} alt="user-image" />
+        </div>
         <h3>{item.name ? item.name : ""}</h3>
         {/* <h5>{item.chatId ? item.chatId.discription : ""}</h5> */}
         <button className="btn-cta-orange" onClick={handleChat}>

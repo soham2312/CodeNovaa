@@ -10,7 +10,15 @@ const reportRoutes = require("./routes/reportRoutes");
 const chatRoutes = require("./routes/Chat/chatRoutes");
 const messageRoutes = require("./routes/Chat/messageRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const fileUpload = require("express-fileupload");
+
 const app = express();
+
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
 
 //Middle ware for cors permission
 app.use(cors());

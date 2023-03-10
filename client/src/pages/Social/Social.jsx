@@ -8,13 +8,14 @@ import logo from "../../assets/codenova.png";
 
 import "./Social.css";
 import SocialCard from "../../components/SocialCard/SocialCard";
+import { useNavigate } from "react-router-dom";
 
 const Social = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user } = ChatState();
-
+  const { user, isUserLoggedIn } = ChatState();
+  const navigate = useNavigate();
   const handleSearch = async () => {
     try {
       setLoading(true);
@@ -40,6 +41,11 @@ const Social = () => {
   useEffect(() => {
     handleSearch();
   }, [search]);
+  useEffect(() => {
+    if (!isUserLoggedIn.current) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div>

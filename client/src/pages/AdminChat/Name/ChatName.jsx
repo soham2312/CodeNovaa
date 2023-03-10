@@ -26,7 +26,7 @@ const ChatName = () => {
       setChats(data.chats);
     } catch (error) {
       console.log(error);
-      alert(error);
+      // alert(error);
     }
   };
 

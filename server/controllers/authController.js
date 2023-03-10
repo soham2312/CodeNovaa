@@ -42,7 +42,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
-    // photo: req.body.photo,
+    photo: req.body.photo,
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
   });
@@ -51,14 +51,14 @@ exports.signup = catchAsync(async (req, res, next) => {
 
   createSendToken(newUser, 201, res);
 
-  var transporter = nodemailer.createTransport({
+  let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
       user: "impostercrewfreedom@gmail.com",
       pass: "avuwpktrouxkalqw",
     },
   });
-  var mailoptions = {
+  let mailoptions = {
     from: "impostercrewfreedom@gmail.com",
     to: req.body.email,
     subject: "click on this link to verify your",

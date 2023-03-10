@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BeatLoader } from "react-spinners";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { ChatState } from "../../context/ChatProvider";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const Login = () => {
   const [show, setshow] = useState(false);
   const [loginstatus, setloginstatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const { user, setUser, isUserLoggedIn } = ChatState();
+
   const handleClick = () => setshow(!show);
   const login = async (e) => {
     e.preventDefault();
@@ -43,6 +46,7 @@ const Login = () => {
         if (fdata) {
           console.log(data);
           localStorage.setItem("userInfo", JSON.stringify(data));
+          isUserLoggedIn.current = data;
           navigate("/discussion");
           toast.success("Logged in successfully!", {
             autoClose: 1000,
@@ -61,7 +65,7 @@ const Login = () => {
       }
     }
   };
-
+  useEffect(() => {}, []);
   return (
     <div className="login-container">
       <div className="login">
