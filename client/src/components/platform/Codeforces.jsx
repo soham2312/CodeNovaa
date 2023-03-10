@@ -13,7 +13,7 @@ const Codeforces = () => {
   useEffect(() => {
     const getdata = async () => {
       try {
-        const handle = "utkarsh_raj_13";
+        const handle = "tourist";
         const fdata = await axios.get(
           `http://localhost:8080/api/v1/codeforces/${handle}`
         );
