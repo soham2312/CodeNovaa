@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { ChatState } from "../../context/ChatProvider";
 import { Helmet } from "react-helmet";
 import axios from "axios";
+import codeforces from "../../assets/codeforces.png";
+import leetcode from "../../assets/leetcode.png";
+import logo from "../../assets/codenova.png";
 
 import "./Social.css";
 import SocialCard from "../../components/SocialCard/SocialCard";
@@ -49,17 +52,30 @@ const Social = () => {
       <Helmet>
         <title>CodeNova | Social</title>
       </Helmet>
-      <div className="social-middle">
-        <label>Search for user</label>
+
+      <div className="social-searchbox">
+        <img src={logo} alt="logo" />
+
         <input
           type="text"
           placeholder="search for user"
+          className="login-username"
           value={search}
           onChange={(e) => {
             e.preventDefault();
             setSearch(e.target.value);
           }}
         />
+        <a className="btn-round">Search Profile</a>
+        <div className="social-searchbyhandle">
+          <p className="text">Search By Coding Profile Handle</p>
+          <div className="social-searchhandle">
+            <img src={codeforces} alt="codeforces" />
+            <img src={leetcode} alt="leetcode" />
+          </div>
+        </div>
+      </div>
+      <div className="social-middle">
         <div className="user-card">
           {searchResult.length !== 0 ? (
             searchResult.map((user) => (

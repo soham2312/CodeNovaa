@@ -4,13 +4,32 @@
   align-items: center;
   padding: 0px;
   gap: 20px;
-  background-color: aliceblue;
-
-  position: absolute;
-  width: 550px;
-  height: 254px;
-  left: 445px;
-  top: 280px;
+  padding-top: 10vh;
+  margin: 0 auto;
+}
+.social-searchbyhandle {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: 0px;
+  gap: 25px;
+  padding-top: 1vh;
+}
+.social-searchhandle {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+  /* padding-top: 2vh; */
+}
+.social-searchbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 0 auto;
+  margin-top: 10vh;
 }
 
 .user-card {
