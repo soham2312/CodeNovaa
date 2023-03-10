@@ -18,6 +18,7 @@ import AdminChat from "./pages/AdminChat/AdminChat";
 import DiscussionChat from "./pages/DiscussionChat/DiscussionChat";
 import Error from "./pages/Error/Error";
 import Reports from "./pages/Reports/Reports";
+import Registration from "./pages/Registration/Registration";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="social" element={<Social />} />
         <Route path="signup" element={<SignUp />} />
+        <Route path="registration" element={<Registration />} />
         <Route path="profile/:slug" element={<Me />}>
           <Route path="codeforces" element={<Codeforces />} />
           <Route path="codechef" element={<Codechef />} />
