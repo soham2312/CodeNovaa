@@ -38,6 +38,29 @@ const userSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  githubHandle: {
+    type: String,
+    unique: true,
+  },
+  codeforcesHandle: {
+    type: String,
+    unique: true,
+  },
+  codeforcesRating: {
+    type: String,
+  },
+  codechefHandle: { type: String, unique: true },
+  leetcodeHandle: {
+    type: String,
+    unique: true,
+  },
+  leetcodeQuestion: {
+    type: String,
+  },
+  gfgHandle: {
+    type: String,
+    unique: true,
+  },
   password: {
     type: String,
     required: [true, "Please provide your password"],
