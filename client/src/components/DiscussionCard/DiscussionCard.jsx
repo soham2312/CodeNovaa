@@ -156,6 +156,7 @@ const DiscussionCard = ({ item }) => {
   // });
   return (
     <div className="discussion-card">
+      {/* {console.log(item)} */}
       {report ? <ReportPopup item={item._id ? item._id : ""} /> : ""}
       <div className="discussion-card-content">
         <div className="discussion-card-ques">
@@ -163,7 +164,10 @@ const DiscussionCard = ({ item }) => {
           <p className="discussion-card-question">{item.chatName}</p>
           <div>
             <p className="discussion-card-text">created by</p>
-            <img src={utkarsh} alt="utkarsh" />
+            <img
+              src={item.groupCreater ? item.groupCreater.photo : ""}
+              alt="creator"
+            />
             <h4>{item.groupCreater ? item.groupCreater.name : ""}</h4>
           </div>
         </div>
@@ -188,12 +192,16 @@ const DiscussionCard = ({ item }) => {
               className="discussion-card-comment-link"
             >
               <BiComment className="discussion-icon" />
-              <p>4</p>
+              {/* <p>4</p> */}
             </Link>
+            {item
+              ? item.users.map((user) => (
+                  <img src={user.photo} alt="" key={user._id} />
+                ))
+              : ""}
+            {/* <img src={utkarsh} alt="" />
             <img src={utkarsh} alt="" />
-            <img src={utkarsh} alt="" />
-            <img src={utkarsh} alt="" />
-            <img src={utkarsh} alt="" />
+            <img src={utkarsh} alt="" /> */}
           </div>
         </div>
         {user.data.user.role === "admin" ? (

@@ -99,7 +99,7 @@ exports.sendMessage = catchAsync(async (req, res, next) => {
 exports.getAllMessage = catchAsync(async (req, res, next) => {
   try {
     const message = await Message.find({ chat: req.params.chatId })
-      .populate("sender", "name pic email")
+      .populate("sender", "name photo email")
       .populate("chat");
     res.json(message);
   } catch (error) {

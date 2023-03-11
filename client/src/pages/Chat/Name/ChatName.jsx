@@ -63,7 +63,7 @@ const ChatName = () => {
                 {chat.users[0] ? (
                   chat.users[0].name === user.data.user.name ? (
                     <img
-                      src={chat.users[1].photo ? chat.users[0].photo : ""}
+                      src={chat.users[1].photo ? chat.users[1].photo : ""}
                       alt="sender-image"
                     />
                   ) : (
