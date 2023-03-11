@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 
-const ENDPOINT = "http://localhost:5000/";
+const ENDPOINT = "https://codenova-api.onrender.com/";
 var socket, selectedChatCompare;
 const Chat = () => {
   const [messages, setMessages] = useState([]);

@@ -237,7 +237,7 @@ exports.register = catchAsync(async (req, res, next) => {
   // console.log(gfgHandle.length);
   // console.log(githubHandle.length);
   const user = await User.findByIdAndUpdate(userId, obj);
-  console.log(user);
+  // console.log(user);
 
   if (!user) {
     return next(new AppError("please try again", 401));

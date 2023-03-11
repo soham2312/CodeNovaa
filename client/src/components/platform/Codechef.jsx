@@ -12,7 +12,7 @@ const Codechef = () => {
       try {
         const handle = "cjfeucj123";
         const fdata = await axios.get(
-          `http://localhost:8080/api/v1/codechef/${handle}`
+          `https://codenova-webscrapping.onrender.com/api/v1/codechef/${handle}`
         );
         setData(fdata.data);
         setLoading(false);
