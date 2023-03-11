@@ -90,15 +90,18 @@ const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
                 <img src={m.sender.photo} alt="sender-image" />
               </div>
             )}
-            <span
+            <div
               style={{
                 backgroundColor: `${
                   m.sender._id === user.data.user._id ? "#BEE3F8" : "#B9F5D0"
                 }`,
                 borderRadius: "20px",
                 padding: "5px 15px",
-                maxWidth: "75%",
+                width: "300px",
+                border: "2px solid blue",
+                display: "flex",
                 height: "auto",
+                flexWrap: "wrap",
                 marginLeft: isSameSenderMargin(
                   messages,
                   m,
@@ -110,8 +113,10 @@ const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
                   : 10,
               }}
             >
-              <p className="chat-message-content">{m.content}</p>
-            </span>
+              <div className="chat-message-content">
+                <p>{m.content}</p>
+              </div>
+            </div>
           </div>
         ))
       ) : (
