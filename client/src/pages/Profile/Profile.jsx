@@ -68,6 +68,14 @@ const Me = () => {
       );
       // console.log("-------------------data----------------");
       // console.log(data.user);
+      // console.log(
+      //   data.user[0].techStack ? data.user[0].techStack.split(" ") : ""
+      // );
+      data.user[0].techStack = data.user[0].techStack
+        ? data.user[0].techStack.split(" ")
+        : [];
+
+      // console.log(data.user[0]);
       setViewUser(data.user[0]);
       for (let i = 0; i < data.user[0].friends.length; i++) {
         if (
@@ -137,7 +145,7 @@ const Me = () => {
           )}
 
           <h1>{viewUser ? viewUser.name : ""}</h1>
-          <h2>IIITDM Jabalpur CSE’25</h2>
+          <h2>{viewUser ? viewUser.college : ""}</h2>
           <div className="profile-content-friend">
             <FaUserFriends />
             <h3>Friend of {viewUser ? viewUser.friends.length : ""} user</h3>
@@ -145,12 +153,20 @@ const Me = () => {
           <div className="profile-techstack">
             <h3>Tech Stack</h3>
             <div className="profile-techstack-detail">
-              <div className="techstack">HTML</div>
-              <div className="techstack">CSS</div>
+              {viewUser
+                ? viewUser.techStack.length > 0
+                  ? viewUser.techStack.map((item) => (
+                      <div className="techstack" key={item}>
+                        {item}
+                      </div>
+                    ))
+                  : "Empty"
+                : ""}
+              {/* <div className="techstack">CSS</div>
               <div className="techstack">JavaScript</div>
               <div className="techstack">React</div>
               <div className="techstack">Node.js</div>
-              <div className="techstack">Express</div>
+              <div className="techstack">Express</div> */}
             </div>
           </div>
 
