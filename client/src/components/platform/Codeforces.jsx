@@ -15,7 +15,7 @@ const Codeforces = () => {
       try {
         const handle = "tourist";
         const fdata = await axios.get(
-          `http://localhost:8080/api/v1/codeforces/${handle}`
+          `https://codenova-webscrapping.onrender.com/api/v1/codeforces/${handle}`
         );
         setData(fdata.data);
         setLoading(false);

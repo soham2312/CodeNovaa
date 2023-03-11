@@ -11,7 +11,7 @@ const Leetcode = () => {
       try {
         const handle = "anudeep0306";
         const fdata = await axios.get(
-          `http://localhost:8080/api/v1/leetcode/${handle}`
+          `https://codenova-webscrapping.onrender.com/api/v1/leetcode/${handle}`
         );
         setData(fdata.data);
 

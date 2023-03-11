@@ -65,9 +65,9 @@ exports.signup = catchAsync(async (req, res, next) => {
   };
   transporter.sendMail(mailoptions, (err, result) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
     } else {
-      console.log("Email send: " + result.response);
+      // console.log("Email send: " + result.response);
     }
   });
 });
