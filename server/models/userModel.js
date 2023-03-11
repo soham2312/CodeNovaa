@@ -64,11 +64,9 @@ const userSchema = new mongoose.Schema({
   college: {
     type: String,
   },
-  techStack: [
-    {
-      type: String,
-    },
-  ],
+  techStack: {
+    type: String,
+  },
   password: {
     type: String,
     required: [true, "Please provide your password"],

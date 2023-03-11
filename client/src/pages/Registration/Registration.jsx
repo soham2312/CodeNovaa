@@ -5,54 +5,31 @@ import { BeatLoader } from "react-spinners";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/codenova.png";
+import { ChatState } from "../../context/ChatProvider";
 
 const Registration = () => {
   const [loading, setLoading] = useState(false);
+  const { isUserLoggedIn } = ChatState();
 
-  // const [githubHandle, setGithubHandle] = useState("");
-  // const [codeforcesHandle, setcodeforcesHandle] = useState("");
-  // const [codechefHandle, setCodechefHandle] = useState("");
-  // const [leetcodeHandle, setLeetcodeHandle] = useState("");
-  // const [gfgHandle, setGfgHandle] = useState("");
-  // const [college, setCollege] = useState("");
-  // const [techStack, setTechStack] = useState("");
+  const [githubHandle, setGithubHandle] = useState("");
+  const [codeforcesHandle, setCodeforcesHandle] = useState("");
+  const [codechefHandle, setCodechefHandle] = useState("");
+  const [leetcodeHandle, setLeetcodeHandle] = useState("");
+  const [gfgHandle, setGfgHandle] = useState("");
+  const [college, setCollege] = useState("");
+  const [techStack, setTechStack] = useState("");
 
-  let college = useRef(null);
-  let githubHandle = useRef(null);
-  let codeforcesHandle = useRef(null);
-  let codechefHandle = useRef(null);
-  let leetcodeHandle = useRef(null);
-  let gfgHandle = useRef(null);
-  let techStack = useRef(null);
-
-  const register = async (e) => {
-    e.preventDefault();
-    college = college.current.value;
-    githubHandle = githubHandle.current.value;
-    codeforcesHandle = codeforcesHandle.current.value;
-    codechefHandle = codechefHandle.current.value;
-    leetcodeHandle = leetcodeHandle.current.value;
-    gfgHandle = gfgHandle.current.value;
-    techStack = techStack.current.value;
-
-    console.log("register button clicked");
-    console.log(college);
-    console.log(githubHandle);
-    console.log(codeforcesHandle);
-    console.log(codechefHandle);
-    console.log(leetcodeHandle);
-    console.log(gfgHandle);
-    console.log(techStack);
-
+  const register = async () => {
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("userInfo")).token
-          }`,
+          Authorization: `Bearer ${isUserLoggedIn.current.token}`,
         },
       };
+      // console.log("---------------------------------");
+      // console.log(isUserLoggedIn);
+      // console.log("---------------------------------");
       const { data } = await axios.post(
         "http://localhost:5000/api/v1/users/register",
         {
@@ -74,6 +51,7 @@ const Registration = () => {
       // console.log(data);
       setLoading(false);
     } catch (err) {
+      console.log(err);
       toast.error("registration failed", {
         autoClose: 1000,
       });
@@ -81,67 +59,74 @@ const Registration = () => {
   };
 
   return (
-    <div className="signup">
-      <form className="signup-container">
-        <img src={logo} />
-        <h3 className="signup-welcome">Welcome</h3>
-        <div className="signup-input">
-          <input
-            type="text"
-            placeholder="college name"
-            name="college"
-            className="signup-username"
-            ref={college}
-          />
-          <input
-            type="text"
-            placeholder="github username"
-            name="githubHandle"
-            className="signup-username"
-            ref={githubHandle}
-          />
-          <input
-            type="text"
-            placeholder="codeforces username"
-            name="codeforcesHandle"
-            className="signup-username"
-            ref={codeforcesHandle}
-          />
-          <input
-            type="text"
-            placeholder="codechef username"
-            name="codechefHandle"
-            className="signup-username"
-            ref={codechefHandle}
-          />
-          <input
-            type="text"
-            placeholder="leetcode username"
-            name="leetcodeHandle"
-            className="signup-username"
-            ref={leetcodeHandle}
-          />
-          <input
-            type="text"
-            placeholder="gfg username"
-            name="gfgHandle"
-            className="signup-username"
-            ref={gfgHandle}
-          />
-          <input
-            type="text"
-            placeholder="Tech Stack : java c++ python javascript"
-            name="techStack"
-            className="signup-username"
-            ref={techStack}
-          />
-        </div>
-        <div>
-          <button type="submit" className="btn-cta-orange" onClick={register}>
-            {loading ? <BeatLoader color="#fff" /> : "Register"}
-          </button>
-        </div>
-      </form>
+    <div className="signup signup-container">
+      {/* <form className="signup-container"> */}
+      <img src={logo} />
+      <h3 className="signup-welcome">Welcome</h3>
+      <div className="signup-input">
+        <input
+          type="text"
+          placeholder="college name"
+          name="college"
+          className="signup-username"
+          value={college}
+          onChange={(e) => setCollege(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="github username"
+          name="githubHandle"
+          className="signup-username"
+          value={githubHandle}
+          onChange={(e) => setGithubHandle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="codeforces username"
+          name="codeforcesHandle"
+          className="signup-username"
+          value={codeforcesHandle}
+          onChange={(e) => setCodeforcesHandle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="codechef username"
+          name="codechefHandle"
+          className="signup-username"
+          value={codechefHandle}
+          onChange={(e) => setCodechefHandle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="leetcode username"
+          name="leetcodeHandle"
+          className="signup-username"
+          value={leetcodeHandle}
+          onChange={(e) => setLeetcodeHandle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="gfg username"
+          name="gfgHandle"
+          className="signup-username"
+          value={gfgHandle}
+          onChange={(e) => setGfgHandle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Tech Stack : java c++ python javascript"
+          name="techStack"
+          className="signup-username"
+          value={techStack}
+          onChange={(e) => setTechStack(e.target.value)}
+        />
+      </div>
+      <div>
+        <button type="submit" className="btn-cta-orange" onClick={register}>
+          {loading ? <BeatLoader color="#fff" /> : "Register"}
+        </button>
+      </div>
+      {/* </form> */}
       <ToastContainer
         position="bottom-right"
         autoClose={1000}

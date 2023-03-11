@@ -55,6 +55,7 @@
   right: 0;
   display: flex;
   justify-content: center;
+  cursor: pointer;
   align-items: center;
   height: 30px;
   width: 30px;

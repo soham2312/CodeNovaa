@@ -25,7 +25,7 @@ const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
         },
       };
       const { data } = await axios.get(
-        `https://codenova-api.onrender.com/api/v1/message/${selectedChat._id}`,
+        `http://localhost:5000/api/v1/message/${selectedChat._id}`,
         config
       );
       socket.emit("join chat", selectedChat._id);
@@ -84,6 +84,12 @@ const AccessChat = ({ messages, setMessages, socket, selectedChatCompare }) => {
       {messages ? (
         messages.map((m, i) => (
           <div className="right" style={{ display: "flex" }} key={m._id}>
+            {(isSameSender(messages, m, i, user.data.user._id) ||
+              isLastMessage(messages, i, user.data.user._id)) && (
+              <div className="profile-pic-2">
+                <img src={m.sender.photo} alt="sender-image" />
+              </div>
+            )}
             <span
               style={{
                 backgroundColor: `${

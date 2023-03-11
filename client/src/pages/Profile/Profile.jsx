@@ -130,7 +130,9 @@ const Me = () => {
             ""
           ) : (
             <div className="profile-edit">
-              <AiTwotoneEdit />
+              <Link to="/registration">
+                <AiTwotoneEdit />
+              </Link>
             </div>
           )}
 

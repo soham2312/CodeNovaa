@@ -213,15 +213,30 @@ exports.register = catchAsync(async (req, res, next) => {
   } = req.body;
 
   const userId = req.user._id;
-  const user = await User.findByIdAndUpdate(userId, {
-    githubHandle: githubHandle,
-    codeforcesHandle: codeforcesHandle,
-    codechefHandle: codechefHandle,
-    leetcodeHandle: leetcodeHandle,
-    gfgHandle: gfgHandle,
-    college: college,
-    techStack: techStack,
-  });
+  const obj = {};
+  if (githubHandle.length > 0) {
+    obj.githubHandle = githubHandle;
+  }
+  if (codeforcesHandle.length > 0) {
+    obj.codeforcesHandle = codeforcesHandle;
+  }
+  if (codechefHandle.length > 0) {
+    obj.codechefHandle = codechefHandle;
+  }
+  if (leetcodeHandle.length > 0) {
+    obj.leetcodeHandle = leetcodeHandle;
+  }
+  if (gfgHandle.length > 0) {
+    obj.gfgHandle = gfgHandle;
+  }
+
+  if (techStack.length > 0) {
+    obj.techStack = techStack;
+  }
+  // console.log(obj);
+  // console.log(gfgHandle.length);
+  // console.log(githubHandle.length);
+  const user = await User.findByIdAndUpdate(userId, obj);
   console.log(user);
 
   if (!user) {
@@ -229,6 +244,6 @@ exports.register = catchAsync(async (req, res, next) => {
   }
   res.status(201).json({
     status: "success",
-    user,
+    data: user,
   });
 });
