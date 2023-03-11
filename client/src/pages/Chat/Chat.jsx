@@ -8,6 +8,7 @@ import MessageBox from "./MessageBox/MessageBox";
 import axios from "axios";
 import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
 
 const ENDPOINT = "http://localhost:5000/";
 var socket, selectedChatCompare;
@@ -109,6 +110,16 @@ const Chat = () => {
           }}
           onChange={(e) => setNewMessage(e.target.value)}
         />
+        {/* <TextField
+          id="filled-basic"
+          label=""
+          variant="outlined"
+          className="messageBox"
+          value={newMessage}
+          onChange={(e) => {
+            setNewMessage(e.target.value);
+          }}
+        /> */}
         <button
           className="btn"
           style={{

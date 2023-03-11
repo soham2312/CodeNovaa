@@ -35,7 +35,7 @@
   padding: 0px;
   gap: 14px;
 
-  width: 593px;
+  width: 700px;
   height: 466px;
   border: 2px solid red;
 }
@@ -45,7 +45,7 @@
   align-items: flex-start;
   gap: 30px;
 
-  width: 593px;
+  width: 700px;
   height: 398px;
   overflow-y: scroll;
   /* overflow: hidden; */
