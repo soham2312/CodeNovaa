@@ -28,7 +28,7 @@ const Social = () => {
       };
 
       const { data } = await axios.get(
-        `https://codenova-api.onrender.com/api/v1/users?search=${search}`,
+        `http://localhost:5000/api/v1/users?search=${search}`,
         config
       );
       setSearchResult(data.users);

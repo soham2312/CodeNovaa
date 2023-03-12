@@ -15,11 +15,32 @@ const SocialCard = ({ user }) => {
         <div className="socialcard-user">{user.name}</div>
         <div className="socialcard-user-rating">
           <img src={leetcode} alt="leetcode" />
-          310 Problems
+          {/* {user.codeforcesHandle ? (
+            <h5>{`Codeforces Handle ${user.codeforcesHandle}`}</h5>
+          ) : (
+            ""
+          )}
+          {user.codeforcesHandle ? (
+            <h5>{`Codeforces Rating ${user.codeforcesRating}`}</h5>
+          ) : (
+            ""
+          )} */}
+          {/* 310 Problems */}
+          {user.leetcodeQuestion ? (
+            <p>{`${user.leetcodeQuestion} Problems`}</p>
+          ) : (
+            "  Handle not Provided"
+          )}{" "}
         </div>
         <div className="socialcard-user-rating">
           <img src={codeforces} alt="codeforces" />
-          <div>9780 rating</div>
+          <div>
+            {user.codeforcesRating ? (
+              <p>{`${user.codeforcesRating} rating`}</p>
+            ) : (
+              "Handle not Provided"
+            )}{" "}
+          </div>
         </div>
         <Link
           to={`/profile/${user.name ? user.name : ""}`}
