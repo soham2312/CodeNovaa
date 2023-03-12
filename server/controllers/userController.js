@@ -20,8 +20,8 @@ exports.allUsers = catchAsync(async (req, res, next) => {
 
 exports.getUser = catchAsync(async (req, res, next) => {
   const user = await User.find({ name: req.params.name })
-    .populate("friends", "name photo")
-    .populate("friendsRequest", " name photo");
+    .populate("friends")
+    .populate("friendsRequest");
   res.status(203).json({ user });
 });
 
