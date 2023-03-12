@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, Link, useParams } from "react-router-dom";
 import userpic from "../../assets/default.jpg";
 import FriendCard from "../../components/FriendCard/FriendCard";
@@ -19,6 +19,11 @@ import "./Profile.css";
 
 const Me = () => {
   const { slug } = useParams();
+  const codeforcesHandle = useRef(null);
+  const codechefHandle = useRef(null);
+  const leetcodeHandle = useRef(null);
+  const githubHandle = useRef(null);
+  const gfgHandle = useRef(null);
   const { user, isUserLoggedIn, openProfile } = ChatState();
   // const { isUserLoggedIn } = GlobalProvider();
   const [viewUser, setViewUser] = useState(null);
@@ -77,6 +82,22 @@ const Me = () => {
 
       // console.log(data.user[0]);
       setViewUser(data.user[0]);
+      if (data.user[0].codeforcesHandle) {
+        codeforcesHandle.current = data.user[0].codeforcesHandle;
+      }
+      if (data.user[0].codechefHandle) {
+        codechefHandle.current = data.user[0].codechefHandle;
+      }
+      if (data.user[0].leetcodeHandle) {
+        leetcodeHandle.current = data.user[0].leetcodeHandle;
+      }
+      if (data.user[0].githubHandle) {
+        githubHandle.current = data.user[0].githubHandle;
+      }
+      if (data.user[0].gfgHandle) {
+        gfgHandle.current = data.user[0].gfgHandle;
+      }
+      // console.log(codeforcesHandle);
       for (let i = 0; i < data.user[0].friends.length; i++) {
         if (
           data.user[0].friends[i]._id ===
@@ -192,7 +213,14 @@ const Me = () => {
       <div className="profile-platform">
         <Platform />
       </div>
-      <Outlet />
+      <Outlet
+        context={[
+          codeforcesHandle,
+          codechefHandle,
+          leetcodeHandle,
+          githubHandle,
+        ]}
+      />
 
       {JSON.parse(localStorage.getItem("userInfo")).data.user._id !==
       (viewUser ? viewUser._id : "") ? (
