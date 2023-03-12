@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { PacmanLoader } from "react-spinners";
+import { useOutlet, useOutletContext } from "react-router-dom";
 
 const Codechef = () => {
   const [data, setData] = useState(null);
+  const [codeforcesHandle, codechefHandle, leetcodeHandle, githubHandle] =
+    useOutletContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const getdata = async () => {
       try {
-        const handle = "cjfeucj123";
+        const handle = codechefHandle.current;
         const fdata = await axios.get(
           `https://codenova-webscrapping.onrender.com/api/v1/codechef/${handle}`
         );

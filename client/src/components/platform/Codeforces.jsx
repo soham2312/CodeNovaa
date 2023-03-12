@@ -3,9 +3,12 @@ import axios from "axios";
 import Bargraph from "./Bargraph";
 import { PacmanLoader } from "react-spinners";
 import Pictograph from "./Pictograph";
+import { useOutletContext } from "react-router-dom";
 // import Example from "./Example";
 
 const Codeforces = () => {
+  const [codeforcesHandle, codechefHandle, leetcodeHandle, githubHandle] =
+    useOutletContext();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -13,13 +16,19 @@ const Codeforces = () => {
   useEffect(() => {
     const getdata = async () => {
       try {
-        const handle = "tourist";
+        if (!codeforcesHandle.current) {
+          throw error("User not found");
+        }
+        // console.log("-------------------------");
+        // console.log(codeforcesHandle.current);
+        // console.log("-------------------------");
+        const handle = codeforcesHandle.current;
         const fdata = await axios.get(
           `https://codenova-webscrapping.onrender.com/api/v1/codeforces/${handle}`
         );
         setData(fdata.data);
         setLoading(false);
-        console.log(fdata.data);
+        // console.log(fdata.data);
       } catch (error) {
         console.log(error);
         alert("user not found");

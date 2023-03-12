@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const axios = require("axios");
+const AppError = require("../utils/appError");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -110,7 +112,6 @@ userSchema.pre("save", async function () {
 // });
 
 userSchema.pre(/^find/, function (next) {
-  // this points to the current query
   this.find({ active: { $ne: false } });
   next();
 });

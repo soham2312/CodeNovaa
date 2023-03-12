@@ -28,10 +28,10 @@ const Registration = () => {
         },
       };
       // console.log("---------------------------------");
-      // console.log(isUserLoggedIn);
+      console.log(college);
       // console.log("---------------------------------");
       const { data } = await axios.post(
-        "https://codenova-api.onrender.com/api/v1/users/register",
+        "http://localhost:5000/api/v1/users/register",
         {
           college: college,
           githubHandle: githubHandle,
@@ -44,15 +44,18 @@ const Registration = () => {
         config
       );
 
-      console.log(data);
-      toast.success("registration successfull", {
-        autoClose: 1000,
-      });
+      // console.log(data);
+      if (data) {
+        toast.success("registration successfull", {
+          autoClose: 1000,
+        });
+      }
+
       // console.log(data);
       setLoading(false);
     } catch (err) {
       console.log(err);
-      toast.error("registration failed", {
+      toast.error("registration failed, Please check the written handles", {
         autoClose: 1000,
       });
     }

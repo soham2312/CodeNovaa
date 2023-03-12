@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { PacmanLoader } from "react-spinners";
+import { useOutletContext } from "react-router-dom";
 
 const Leetcode = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
+  const [codeforcesHandle, codechefHandle, leetcodeHandle, githubHandle] =
+    useOutletContext();
 
   useEffect(() => {
     const getdata = async () => {
       try {
-        const handle = "anudeep0306";
+        const handle = leetcodeHandle.current;
+        console.log("----------------------");
+        console.log(handle);
+        console.log("----------------------");
         const fdata = await axios.get(
           `https://codenova-webscrapping.onrender.com/api/v1/leetcode/${handle}`
         );
